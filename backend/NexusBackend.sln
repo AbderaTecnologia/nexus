@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.NotaFiscal.Api", "modules\Nexus.NotaFiscal.Api\Nexus.NotaFiscal.Api.csproj", "{27299DF8-8A2C-48ED-B967-38CB88C17B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Folha", "modules\Nexus.Folha\Nexus.Folha.csproj", "{71345CAE-A2C2-4197-9DDC-43C51258D667}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{9EEFD611-3B01-436B-AB97-89AC7CA63B9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotaFiscal", "NotaFiscal", "{D693626B-87A7-46FB-AE0C-A376125649E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Folha", "Folha", "{8E6E98ED-69DC-494A-B82F-B359E8E9AA52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27299DF8-8A2C-48ED-B967-38CB88C17B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27299DF8-8A2C-48ED-B967-38CB88C17B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27299DF8-8A2C-48ED-B967-38CB88C17B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27299DF8-8A2C-48ED-B967-38CB88C17B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71345CAE-A2C2-4197-9DDC-43C51258D667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71345CAE-A2C2-4197-9DDC-43C51258D667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71345CAE-A2C2-4197-9DDC-43C51258D667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71345CAE-A2C2-4197-9DDC-43C51258D667}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D693626B-87A7-46FB-AE0C-A376125649E2} = {9EEFD611-3B01-436B-AB97-89AC7CA63B9A}
+		{8E6E98ED-69DC-494A-B82F-B359E8E9AA52} = {9EEFD611-3B01-436B-AB97-89AC7CA63B9A}
+		{71345CAE-A2C2-4197-9DDC-43C51258D667} = {8E6E98ED-69DC-494A-B82F-B359E8E9AA52}
+		{27299DF8-8A2C-48ED-B967-38CB88C17B17} = {D693626B-87A7-46FB-AE0C-A376125649E2}
+	EndGlobalSection
+EndGlobal

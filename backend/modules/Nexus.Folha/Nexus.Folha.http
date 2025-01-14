@@ -1,0 +1,6 @@
+@Nexus.Folha_HostAddress = http://localhost:5051
+
+GET {{Nexus.Folha_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
