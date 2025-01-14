@@ -1,0 +1,13 @@
+npm-debug.log*
+node_modules
+.vscode
+.swp
+.DS_Store
+docker-images
+publish*
+.idea
+*.code-workspace
+.vs
+.env
+package-lock.json
+**/dist
