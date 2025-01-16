@@ -2,8 +2,10 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Nexus.Folha.Domain.Entities;
 
-public class Funcionarios 
+public class Funcionario
 {
+    public int Id { get; set; } 
+        
     public string NomeCompleto { get; set; }
     
     public string DataNascimento { get; set; }
