@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.NotaFiscal.Api", "modules\Nexus.NotaFiscal.Api\Nexus.NotaFiscal.Api.csproj", "{27299DF8-8A2C-48ED-B967-38CB88C17B17}"
 EndProject
@@ -14,6 +14,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Folha.Domain", "modules\Nexus.Folha\src\Nexus.Folha.Domain\Nexus.Folha.Domain.csproj", "{EA715EA2-84AC-4FDB-AF3F-833007370503}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Folha.Api", "modules\Nexus.Folha\src\Nexus.Folha.Api\Nexus.Folha.Api.csproj", "{DDD48355-8C9C-4886-B064-3D5570EE2C87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Folha.Infra", "modules\Nexus.Folha\src\Nexus.Folha.Infra\Nexus.Folha.Infra.csproj", "{691AEFC2-C588-4904-B68B-4EC484737195}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{26F81B54-7178-411E-B6AC-0619733B0A9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Core.Infra", "core\Nexus.Core.Infra\Nexus.Core.Infra.csproj", "{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Folha.Application", "modules\Nexus.Folha\src\Nexus.Folha.Application\Nexus.Folha.Application.csproj", "{9A751AD8-C477-4771-B0D7-847F02EB87CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,18 @@ Global
 		{DDD48355-8C9C-4886-B064-3D5570EE2C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDD48355-8C9C-4886-B064-3D5570EE2C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDD48355-8C9C-4886-B064-3D5570EE2C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691AEFC2-C588-4904-B68B-4EC484737195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691AEFC2-C588-4904-B68B-4EC484737195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691AEFC2-C588-4904-B68B-4EC484737195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691AEFC2-C588-4904-B68B-4EC484737195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A751AD8-C477-4771-B0D7-847F02EB87CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A751AD8-C477-4771-B0D7-847F02EB87CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A751AD8-C477-4771-B0D7-847F02EB87CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A751AD8-C477-4771-B0D7-847F02EB87CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +63,8 @@ Global
 		{8E6E98ED-69DC-494A-B82F-B359E8E9AA52} = {9EEFD611-3B01-436B-AB97-89AC7CA63B9A}
 		{EA715EA2-84AC-4FDB-AF3F-833007370503} = {8E6E98ED-69DC-494A-B82F-B359E8E9AA52}
 		{DDD48355-8C9C-4886-B064-3D5570EE2C87} = {8E6E98ED-69DC-494A-B82F-B359E8E9AA52}
+		{691AEFC2-C588-4904-B68B-4EC484737195} = {8E6E98ED-69DC-494A-B82F-B359E8E9AA52}
+		{BB0D1399-6934-4DBC-9B1C-83C81F98E7E1} = {26F81B54-7178-411E-B6AC-0619733B0A9E}
+		{9A751AD8-C477-4771-B0D7-847F02EB87CB} = {8E6E98ED-69DC-494A-B82F-B359E8E9AA52}
 	EndGlobalSection
 EndGlobal
