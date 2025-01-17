@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\core\Nexus.Core.Infra\Nexus.Core.Infra.csproj" />
+    <ProjectReference Include="..\Nexus.Folha.Api\Nexus.Folha.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
