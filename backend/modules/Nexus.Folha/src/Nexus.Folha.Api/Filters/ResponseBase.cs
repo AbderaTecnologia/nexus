@@ -1,6 +1,6 @@
 ﻿namespace Nexus.Folha.Api.Filters;
 
-public class ResponseBase<T>
+public sealed class ResponseBase<T>
 {
     public T? Result { get; }
     public string? ErrorMessage { get; }
