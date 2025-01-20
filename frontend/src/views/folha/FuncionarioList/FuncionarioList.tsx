@@ -1,41 +1,54 @@
 import { Card } from '@/components/ui'
 import Table from '@/components/ui/Table'
+import { apiGetFuncionarioList } from '@/services/folha/FuncionarioService'
+import { useEffect, useState } from 'react'
+
+type FuncionarioList = {
+    id: string
+    nomeCompleto: string
+    dataNascimento: string
+    cidade: string
+    uf: string
+}
 
 const { Tr, Th, Td, THead, TBody } = Table
 
-const Funcionarios = () => {
+const FuncionarioList = () => {
+    const [funcionarioList, setFuncionarioList] = useState<FuncionarioList[]>([])
+
+    useEffect(() => {
+        const getFuncionarioList = async () => {
+            const resp = await apiGetFuncionarioList()
+            setFuncionarioList(resp.result)
+        }
+
+        getFuncionarioList()
+    }, [])
+
     return (
-        <div>
-            <Card>
-                <Table>
-                    <THead>
-                        <Tr>
-                            <Th>Company</Th>
-                            <Th>Contact</Th>
-                            <Th>Country</Th>
+        <Card>
+            <Table>
+                <THead>
+                    <Tr>
+                        <Th>Nome Completo</Th>
+                        <Th>Data de Nascimento</Th>
+                        <Th>Cidade</Th>
+                        <Th>UF</Th>
+                    </Tr>
+                </THead>
+                <TBody>
+                    {funcionarioList.map((funcionario) => (
+                        <Tr key={funcionario.id}>
+                            <Td>{funcionario.nomeCompleto}</Td>
+                            <Td>{funcionario.dataNascimento}</Td>
+                            <Td>{funcionario.cidade}</Td>
+                            <Td>{funcionario.uf}</Td>
                         </Tr>
-                    </THead>
-                    <TBody>
-                        <Tr>
-                            <Td>Alfreds Futterkiste</Td>
-                            <Td>Maria Anders</Td>
-                            <Td>Germany</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Centro comercial Moctezuma</Td>
-                            <Td>Francisco Chang</Td>
-                            <Td>Mexico</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Ernst Handel</Td>
-                            <Td>Roland Mendel</Td>
-                            <Td>Austria</Td>
-                        </Tr>
-                    </TBody>
-                </Table>
-            </Card>
-        </div>
+                    ))}
+                </TBody>
+            </Table>
+        </Card>
     )
 }
 
-export default Funcionarios
+export default FuncionarioList
