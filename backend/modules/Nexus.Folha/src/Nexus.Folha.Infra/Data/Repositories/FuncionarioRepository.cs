@@ -1,12 +1,8 @@
 using System.Data;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using DapperExtensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.EventLog;
-using Nexus.Folha.Api;
 using Nexus.Folha.Domain.Entities;
-using Slapper;
+
 
 namespace Nexus.Folha.Infra.Data.Repositories;
 
@@ -74,7 +70,7 @@ public class FuncionarioRespository(ILogger<Funcionario> logger, IDbConnection c
         {
             var Funcionario = new Funcionario
             {
-                Id = id.ToString()
+                Id = id
             };
 
             return await connection.DeleteAsync(Funcionario);
