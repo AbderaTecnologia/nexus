@@ -5,7 +5,7 @@ namespace Nexus.Folha.Infra.Data.Repositories;
 
     public interface IFuncionarioRepository
     {
-        Task<IEnumerable<Funcionario>?>Get();  
+        Task< IEnumerable < Funcionario >?> Get();  
     }
     
 

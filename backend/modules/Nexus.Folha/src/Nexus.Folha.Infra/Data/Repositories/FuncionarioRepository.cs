@@ -40,7 +40,7 @@ public class FuncionarioRespository(ILogger<Funcionario> logger, IDbConnection c
         }
     }
 
-    public async Task<bool?> create(Funcionario Funcionario)
+    public async Task<bool?> Create (Funcionario Funcionario)
     {
         try
         {
