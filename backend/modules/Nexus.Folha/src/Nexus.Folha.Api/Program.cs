@@ -1,23 +1,25 @@
+using Nexus.Folha.Api;
+using Nexus.Folha.Api.Extensions;
+using Nexus.Folha.Application.Extensions;
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//builder.Services.AddOpenApi("v1", "Nexus", ".NET 9 API with MediatR");
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddMediator();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.MapOpenApi();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.MapEndpoints();
 
-app.MapControllers();
-
-app.Run();
+await app.RunAsync();

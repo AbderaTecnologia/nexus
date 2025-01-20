@@ -1,32 +1,26 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace Nexus.Folha.Domain.Entities;
 
-public class Funcionario
+public sealed class Funcionario
 {
-    public int Id { get; set; } 
-        
-    public string NomeCompleto { get; set; }
-    
-    public string DataNascimento { get; set; }
-    
-    public string NomePai { get; set; }
-    
-    public string NomeMae { get; set; }
+    public Guid Id { get; init; }
+    public string NomeCompleto { get; init; }
+    public DateTime DataNascimento { get; init; }
 
-    public  string Cep { get; set; }
-    
-    public string Endereço { get;set; }                                             
+    public string NomePai { get; init; }
 
-    public string Cidade { get; set; }
-    
-    public string UF { get; set; }
+    public string NomeMae { get; init; }
 
-    public string LocalNasimento { get; set; }
+    public string Cep { get; init; }
 
-    public string Telefone { get; set; }
-    
-    public string NomeConjuge { get; set; }
+    public string Endereco { get; init; }
 
+    public string Cidade { get; init; }
+
+    public string UF { get; init; }
+
+    public string LocalNascimento { get; init; }
+
+    public string Telefone { get; init; }
+
+    public string NomeConjuge { get; init; }
 }
-

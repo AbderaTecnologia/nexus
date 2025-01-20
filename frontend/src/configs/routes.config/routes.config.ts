@@ -12,6 +12,12 @@ export const protectedRoutes: Routes = [
         component: lazy(() => import('@/views/Home')),
         authority: [],
     },
+    {
+        key: 'folha.funcionarios',
+        path: '/folha/funcionarios',
+        component: lazy(() => import('@/views/folha/FuncionarioList')),
+        authority: [],
+    },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',
