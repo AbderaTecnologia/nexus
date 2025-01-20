@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using Nexus.Folha.Infra.Repositories;
 
 namespace Nexus.Folha.Infra.Extensions;
 
@@ -7,6 +8,6 @@ namespace Nexus.Folha.Infra.Extensions;
 public static class RepositoriesInstallerExtensions
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services) =>
-        services;
-            //.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+        services
+            .AddScoped<IFuncionarioRepository, FuncionarioRepository>();
 }

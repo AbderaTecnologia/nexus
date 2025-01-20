@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Nexus.Folha.Infra.Data.Connection;
 using Nexus.Folha.Infra.Extensions;
 
 namespace Nexus.Folha.Application.Extensions;
@@ -15,13 +18,13 @@ public static class HandlersInstallerExtensions
                 .AddOpenBehaviors())
             .AddHandlersDependencies();
 
-    public static IServiceCollection AddHandlersDependencies(this IServiceCollection services) =>
+    private static IServiceCollection AddHandlersDependencies(this IServiceCollection services) =>
         services
             .AddRepositories()
             .AddDatabase()
-            .AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies(), ServiceLifetime.Scoped);
+            .AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-    public static void AddOpenBehaviors(this MediatRServiceConfiguration configuration)
+    private static void AddOpenBehaviors(this MediatRServiceConfiguration configuration)
     {
         var types = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetInterfaces()
             .Any(intf => intf.IsGenericType && intf.GetGenericTypeDefinition() == typeof(IPipelineBehavior<,>)));
@@ -29,5 +32,4 @@ public static class HandlersInstallerExtensions
         foreach (var behaviorType in types)
             configuration.AddOpenBehavior(behaviorType, ServiceLifetime.Scoped);
     }
-
 }

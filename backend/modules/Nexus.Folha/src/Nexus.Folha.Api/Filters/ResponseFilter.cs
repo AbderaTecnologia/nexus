@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Nexus.Folha.Api.Filters;
 
-public class ResponseFilter : IEndpointFilter
+public sealed class ResponseFilter : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
@@ -30,28 +30,28 @@ public class ResponseFilter : IEndpointFilter
         return result;
     }
 
-    private ResponseBase<object?> GetResponseBase(object? result, out int? statusCode, out string? location)
+    private static ResponseBase<object?> GetResponseBase(object? result, out int? statusCode, out string? location)
     {
         object? value = null;
 
-        if (typeof(IValueHttpResult<object?>).IsAssignableFrom(result?.GetType()))
+        if (result is IValueHttpResult<object?> httpResult)
         {
-            if (result is ProblemHttpResult problemResult)
+            if (httpResult is ProblemHttpResult problemResult)
                 value = problemResult.ProblemDetails.Detail;
             else
-                value = (result as IValueHttpResult<object?>)?.Value;
+                value = httpResult?.Value;
         }
 
         statusCode = (result as IStatusCodeHttpResult)?.StatusCode;
-        var isSucces = statusCode >= Status200OK && statusCode <= Status204NoContent;
+        var isSuccess = statusCode is >= Status200OK and <= Status204NoContent;
 
-        if (statusCode == Status201Created || statusCode == Status202Accepted)
+        if (statusCode is Status201Created or Status202Accepted)
             location = result?.GetType().GetProperties()
                 .FirstOrDefault(p => p.Name == "Location")?.GetValue(result)?.ToString();
         else
             location = null;
 
-        if (isSucces)
+        if (isSuccess)
             return new ResponseBase<object?>(value);
         else
         {
