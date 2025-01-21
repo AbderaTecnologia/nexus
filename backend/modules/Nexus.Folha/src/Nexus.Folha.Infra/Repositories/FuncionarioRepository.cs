@@ -15,7 +15,7 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao buscar funcionário");
+            logger.LogError(e, "Erro ao buscar funcionários");
             return null!;
         }
         
@@ -43,7 +43,7 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao obter funcionario");
+            logger.LogError(e, "Erro ao inserir funcionário");
             return null;
         }
     }
@@ -56,7 +56,7 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao atualizar funcionario");
+            logger.LogError(e, "Erro ao atualizar funcionário");
             return null;
         }
     }
@@ -74,36 +74,8 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao deletar funcionario");
+            logger.LogError(e, "Erro ao deletar funcionário");
             return null;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
