@@ -15,8 +15,96 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao buscar funcionários");
+            logger.LogError(e, "Erro ao buscar funcionário");
             return null!;
         }
+        
     }
+
+    public async Task<Funcionario?> Get(Guid id)
+    {
+        try
+        {
+          return await connection.GetAsync<Funcionario>(id.ToString());  
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Erro ao buscar funcionário");
+            return null;
+        }
+    }
+
+    public async Task<bool?> Create(Funcionario Funcionario)
+    {
+        try
+        {
+            return await connection.InsertAsync(Funcionario);
+            return true;
+
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Erro ao obter funcionario");
+            return null;
+        }
+    }
+
+    public async Task<bool?> Update(Funcionario funcionario)
+    {
+        try
+        {
+            return await connection.UpdateAsync(funcionario);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Erro ao atualizar funcionario");
+            return null;
+        }
+    }
+
+    public async Task<bool?> Delete(Guid id)
+    {
+        try
+        {
+            var Funcionario = new Funcionario
+            {
+                Id = id
+            };
+            
+            return await connection.DeleteAsync(Funcionario);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Erro ao deletar funcionario");
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
