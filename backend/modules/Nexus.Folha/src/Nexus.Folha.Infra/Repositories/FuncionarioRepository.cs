@@ -38,9 +38,8 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
     {
         try
         {
-            return await connection.InsertAsync(Funcionario);
+            await connection.InsertAsync(Funcionario);
             return true;
-
         }
         catch (Exception e)
         {
@@ -48,7 +47,7 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
             return null;
         }
     }
-
+    
     public async Task<bool?> Update(Funcionario funcionario)
     {
         try
