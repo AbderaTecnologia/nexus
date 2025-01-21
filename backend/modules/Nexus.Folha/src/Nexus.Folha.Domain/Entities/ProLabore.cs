@@ -4,8 +4,8 @@ public class ProLabore
 {
     public Guid Id {get; set;}
     
-    public string Declaraçao {get; set;}
+    public string Declaracao {get; set;}
     
-    public DateTime Período { get; set; }
+    public DateTime Periodo { get; set; }
 }
 
