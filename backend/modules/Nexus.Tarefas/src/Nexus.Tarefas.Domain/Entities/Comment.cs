@@ -6,7 +6,7 @@ public class Comment
     
     public string Name { get; set; }    
     
-    public string Massage { get; set; }
+    public string Message { get; set; }
     
     public DateTime Date { get; set; }
 }
