@@ -13,12 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\core\Nexus.Core.Api\Nexus.Core.Api.csproj" />
     <ProjectReference Include="..\Nexus.Folha.Application\Nexus.Folha.Application.csproj" />
     <ProjectReference Include="..\Nexus.Folha.Domain\Nexus.Folha.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>
 
 </Project>
