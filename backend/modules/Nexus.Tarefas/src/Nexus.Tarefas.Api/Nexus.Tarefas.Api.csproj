@@ -19,4 +19,9 @@
       <Folder Include="Filters\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\core\Nexus.Core.Api\Nexus.Core.Api.csproj" />
+      <ProjectReference Include="..\Nexus.Tarefas.Application\Nexus.Tarefas.Application.csproj" />
+    </ItemGroup>
+
 </Project>

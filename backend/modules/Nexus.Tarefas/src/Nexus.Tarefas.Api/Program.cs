@@ -1,8 +1,9 @@
+using Nexus.Tarefas.Api.Mapping;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediator();
+//builder.Services.AddMediator();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
