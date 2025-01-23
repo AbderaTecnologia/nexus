@@ -1,5 +1,3 @@
-using Nexus.Folha.Api;
-using Nexus.Folha.Application.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
