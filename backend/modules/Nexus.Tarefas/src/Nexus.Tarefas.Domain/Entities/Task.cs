@@ -15,5 +15,5 @@ public class Task
     
     public DateTime DueDate { get; set; }
     
-    public Boolean Checked { get; set; }
+    public bool Checked { get; set; }
 }

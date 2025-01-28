@@ -8,8 +8,16 @@
 
   <ItemGroup>
     <Folder Include="Data\Connection\" />
-    <Folder Include="Data\Repositories\" />
     <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DapperExtensions" Version="1.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nexus.Tarefas.Domain\Nexus.Tarefas.Domain.csproj" />
   </ItemGroup>
 
 </Project>
