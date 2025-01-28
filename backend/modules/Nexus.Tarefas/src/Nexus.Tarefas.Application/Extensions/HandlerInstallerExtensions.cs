@@ -1,6 +1,9 @@
 using System.Reflection;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Nexus.Tarefas.Infra.Data.Connection;
+using Nexus.Tarefas.Infra.Extensions;
 
 namespace Nexus.Tarefas.Application.Extensions;
 
@@ -14,10 +17,10 @@ public static class HandlersInstallerExtensions
             .AddHandlersDependencies();
 
     private static IServiceCollection AddHandlersDependencies(this IServiceCollection services) =>
-        services;
-            //.AddRepositories()
-            //.AddDatabase()
-            //.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+        services
+            .AddRepositories()
+            .AddDatabase()
+            .AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
     private static void AddOpenBehaviors(this MediatRServiceConfiguration configuration)
     {
