@@ -59,14 +59,15 @@ public sealed class TaskRepository(ILogger<TaskRepository> logger, IDbConnection
                 Id = id
             };
 
+            return await connection.DeleteAsync(task);
+
         }
         catch (Exception e)
         {
             logger.LogError(e,"" );
             return null;
         }
-
-        return null;
+        
     }
 
 }
