@@ -16,7 +16,7 @@ public static class DatabaseConnections
             .SeedData(connection);
     }
 
-    private static IServiceCollection SeedData(this IServiceCollection services, IDbConnection connection)
+    private static IServiceCollection SeedData(this IServiceCollection services, SqliteConnection connection)
     {
         connection.Open();
 

@@ -11,6 +11,7 @@ public static class FolhaEndpoints
     public static IEndpointRouteBuilder MapFolhaEndpoints(this IEndpointRouteBuilder builder) =>
         builder.MapGroup("Folha", "/api/folha", group =>
         {
+            group.RequireAuthorization();
             group.MapGet("/", (IMediator mediator) => mediator.Send(new GetFuncionariosCommand()))
                 .WithDescription("Obter lista de funcionários")
                 .ProducesResponse<IEnumerable<Funcionario>>(OK)

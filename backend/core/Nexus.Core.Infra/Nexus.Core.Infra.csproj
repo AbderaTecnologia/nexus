@@ -8,7 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\Nexus.Auth\src\Nexus.Auth\Nexus.Auth.csproj" />
+    <ProjectReference Include="..\Nexus.Core.Domain\Nexus.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>
