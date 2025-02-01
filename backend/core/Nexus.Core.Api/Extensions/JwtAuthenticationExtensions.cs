@@ -1,8 +1,11 @@
+using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Nexus.Auth.Extensions;
+namespace Nexus.Core.Api.Extensions;
 
 public static class JwtAuthenticationExtensions
 {
@@ -10,6 +13,10 @@ public static class JwtAuthenticationExtensions
     {
         var jwtSettings = configuration.GetSection("JwtSettings");
         var secretKey = jwtSettings["SecretKey"];
+        if (string.IsNullOrEmpty(secretKey))
+        {
+            throw new ArgumentNullException(nameof(secretKey), "SecretKey cannot be null or empty.");
+        }
 
         services.AddAuthentication(options =>
         {
@@ -26,7 +33,7 @@ public static class JwtAuthenticationExtensions
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = jwtSettings["Issuer"],
                 ValidAudience = jwtSettings["Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? throw new ArgumentNullException(nameof(secretKey))))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
             };
         });
 

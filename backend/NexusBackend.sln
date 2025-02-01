@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Tarefas.Api", "module
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{0C669182-3E77-4893-A40F-F85B22F9F0AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Auth", "modules\Nexus.Auth\src\Nexus.Auth\Nexus.Auth.csproj", "{DBB87C46-E4CA-4FA9-9986-4E65849A282B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Auth.Api", "modules\Nexus.Auth\src\Nexus.Auth.Api\Nexus.Auth.Api.csproj", "{DBB87C46-E4CA-4FA9-9986-4E65849A282B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Core.Domain", "core\Nexus.Core.Domain\Nexus.Core.Domain.csproj", "{7C992956-ABBA-4287-BAE0-B87D17EE4CF3}"
 EndProject
@@ -46,6 +46,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Cadastro.Domain", "modules\Nexus.Cadastro\src\Nexus.Cadastro.Domain\Nexus.Cadastro.Domain.csproj", "{5D556AC7-A781-4A38-86EA-ED75B5B9D2E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Cadastro.Infra", "modules\Nexus.Cadastro\src\Nexus.Cadastro.Infra\Nexus.Cadastro.Infra.csproj", "{2CF82924-670A-4746-8C85-1CD2153110FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Auth.Infra", "modules\Nexus.Auth\src\Nexus.Auth.Infra\Nexus.Auth.Infra.csproj", "{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Auth.Domain", "modules\Nexus.Auth\src\Nexus.Auth.Domain\Nexus.Auth.Domain.csproj", "{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Auth.Application", "modules\Nexus.Auth\src\Nexus.Auth.Application\Nexus.Auth.Application.csproj", "{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Core.Application", "core\Nexus.Core.Application\Nexus.Core.Application.csproj", "{9CC559A9-76E8-4B2A-A337-A8672C85C00B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +125,22 @@ Global
 		{2CF82924-670A-4746-8C85-1CD2153110FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CF82924-670A-4746-8C85-1CD2153110FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CF82924-670A-4746-8C85-1CD2153110FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CC559A9-76E8-4B2A-A337-A8672C85C00B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC559A9-76E8-4B2A-A337-A8672C85C00B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC559A9-76E8-4B2A-A337-A8672C85C00B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC559A9-76E8-4B2A-A337-A8672C85C00B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +166,9 @@ Global
 		{9EF53848-880D-4A19-B6F7-D561871A4B15} = {C323FBCC-D647-4D3D-F3F9-6F8FD0917B42}
 		{5D556AC7-A781-4A38-86EA-ED75B5B9D2E5} = {C323FBCC-D647-4D3D-F3F9-6F8FD0917B42}
 		{2CF82924-670A-4746-8C85-1CD2153110FB} = {C323FBCC-D647-4D3D-F3F9-6F8FD0917B42}
+		{DDD23343-5ABF-4DAB-9D1E-776ECEDFDE6B} = {0C669182-3E77-4893-A40F-F85B22F9F0AF}
+		{77FE463C-FCB4-43CF-BDAC-47EA7376CC2D} = {0C669182-3E77-4893-A40F-F85B22F9F0AF}
+		{0B249FF8-4FCB-44E1-951C-FFF4BD5C74C3} = {0C669182-3E77-4893-A40F-F85B22F9F0AF}
+		{9CC559A9-76E8-4B2A-A337-A8672C85C00B} = {26F81B54-7178-411E-B6AC-0619733B0A9E}
 	EndGlobalSection
 EndGlobal

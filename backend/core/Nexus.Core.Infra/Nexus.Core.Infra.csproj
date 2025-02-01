@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\Nexus.Auth\src\Nexus.Auth\Nexus.Auth.csproj" />
+    <ProjectReference Include="..\..\modules\Nexus.Auth\src\Nexus.Auth.Api\Nexus.Auth.Api.csproj" />
     <ProjectReference Include="..\Nexus.Core.Domain\Nexus.Core.Domain.csproj" />
   </ItemGroup>
 

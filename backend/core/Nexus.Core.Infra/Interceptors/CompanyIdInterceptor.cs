@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nexus.Core.Domain.Entities.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Nexus.Auth.Models;
+using Nexus.Core.Domain.Entities;
 
 namespace Nexus.Core.Infra.Interceptors;
 

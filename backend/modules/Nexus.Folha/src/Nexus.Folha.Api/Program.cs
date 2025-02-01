@@ -1,7 +1,7 @@
 using APIWeaver;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Nexus.Auth.Extensions;
+using Nexus.Core.Api.Extensions;
 using Nexus.Core.Infra.Interceptors;
 using Nexus.Folha.Api;
 using Nexus.Folha.Application.Extensions;
