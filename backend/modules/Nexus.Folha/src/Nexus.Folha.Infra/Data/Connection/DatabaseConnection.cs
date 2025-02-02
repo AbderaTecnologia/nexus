@@ -1,32 +1,19 @@
-using System.Data;
-using Dapper;
-using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Nexus.Folha.Infra.Persistence;
 
 namespace Nexus.Folha.Infra.Data.Connection;
 
-public static class DatabaseConnections
+public static class DatabaseConnection
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services)
+    public static IServiceCollection AddFolhaDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connection = new SqliteConnection("Data Source=:memory:");
+        var connectionString = configuration.GetConnectionString("FolhaPostgresConnection");
 
-        return services
-            .AddSingleton<IDbConnection>(_ => connection)
-            .SeedData(connection);
-    }
+        services.AddDbContext<FolhaDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
-    private static IServiceCollection SeedData(this IServiceCollection services, SqliteConnection connection)
-    {
-        connection.Open();
-
-        var script = File.ReadAllText("script.sql");
-
-        var commands = script.Split(";").Where(command => !string.IsNullOrEmpty(command));
-
-        foreach (var command in commands)
-            connection.Execute(command);
-        
         return services;
     }
 }
