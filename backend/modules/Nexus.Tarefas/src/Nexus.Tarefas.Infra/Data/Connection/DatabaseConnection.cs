@@ -1,16 +1,22 @@
-using System.Data;
-using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Nexus.Tarefas.Infra.Persistence;
 
 namespace Nexus.Tarefas.Infra.Data.Connection;
 
 public static class DatabaseConnection
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services)
+    public static IServiceCollection AddTarefasDatabase(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
-        var connection = new SqliteConnection("Data Source=:memory:");
+        var connectionString = configuration.GetConnectionString("TarefasPostgresConnection");
 
-        return services
-            .AddSingleton<IDbConnection>(_ => connection);
+        services.AddDbContext<TarefasDbContext>(options =>
+            options.UseNpgsql(connectionString));
+
+        return services;
     }
 }
