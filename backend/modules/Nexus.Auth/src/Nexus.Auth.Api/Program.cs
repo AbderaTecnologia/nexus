@@ -1,32 +1,46 @@
-using System.Text.Json.Serialization;
+using APIWeaver;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using Nexus.Auth.Api.Mapping;
+using Nexus.Auth.Application.Extensions;
+using Nexus.Core.Api.Extensions;
+using Nexus.Core.Infra.Interceptors;
+using Scalar.AspNetCore;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureHttpJsonOptions(options => { options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default); });
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
+builder.Services.AddSingleton<CompanyIdInterceptor>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddMediator();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddSecurityScheme(JwtBearerDefaults.AuthenticationScheme, scheme =>
+    {
+        scheme.In = ParameterLocation.Header;
+        scheme.Type = SecuritySchemeType.Http;
+        scheme.Scheme = JwtBearerDefaults.AuthenticationScheme;
+        scheme.BearerFormat = "JWT";
+    });
+    options.AddAuthResponse();
+});
 
 var app = builder.Build();
+app.MapOpenApi();
 
-var sampleTodos = new Todo[]
+if (app.Environment.IsDevelopment())
 {
-    new(1, "Walk the dog"),
-    new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
-    new(3, "Do the laundry", DateOnly.FromDateTime(DateTime.Now.AddDays(1))),
-    new(4, "Clean the bathroom"),
-    new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
-};
-
-var todosApi = app.MapGroup("/todos");
-todosApi.MapGet("/", () => sampleTodos);
-todosApi.MapGet("/{id}", (int id) =>
-    sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
-        ? Results.Ok(todo)
-        : Results.NotFound());
-
-app.Run();
-
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
-
-[JsonSerializable(typeof(Todo[]))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
+    app.MapScalarApiReference();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapEndpoints();
+
+await app.RunAsync();

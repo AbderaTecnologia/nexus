@@ -6,8 +6,8 @@ namespace Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 
 public class CreateUserCommand : IRequest<User>
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public required string Username { get; set; }
+    public required string Password { get; set; }
     public Guid CompanyId { get; set; }
 }
 

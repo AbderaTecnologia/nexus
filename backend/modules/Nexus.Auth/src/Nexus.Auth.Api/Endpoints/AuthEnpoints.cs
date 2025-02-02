@@ -1,8 +1,9 @@
 using MediatR;
 using Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 using Nexus.Auth.Application.Handlers.Users.LoginHandler;
+using Nexus.Auth.Application.Models;
 using Nexus.Auth.Domain.Entities;
-using Nexus.Auth.Models;
+using Nexus.Core.Api.Extensions;
 using static System.Net.HttpStatusCode;
 
 namespace Nexus.Auth.Api.Endpoints;

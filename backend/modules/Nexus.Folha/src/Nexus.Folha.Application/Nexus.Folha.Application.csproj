@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Nexus.Folha.Infra\Nexus.Folha.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\Interfaces\" />
-  </ItemGroup>
-
 </Project>

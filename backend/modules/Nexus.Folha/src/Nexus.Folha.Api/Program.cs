@@ -9,13 +9,9 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar autenticação JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
-
-// Adicionar serviços de autorização
 builder.Services.AddAuthorization();
 
-// Adicionar o interceptor de CompanyId
 builder.Services.AddSingleton<CompanyIdInterceptor>();
 builder.Services.AddHttpContextAccessor();
 
@@ -31,7 +27,6 @@ builder.Services.AddOpenApi(options =>
     });
     options.AddAuthResponse();
 });
-
 
 var app = builder.Build();
 app.MapOpenApi();
