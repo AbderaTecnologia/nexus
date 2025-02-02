@@ -15,7 +15,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<CompanyIdInterceptor>();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddMediator();
+builder.Services.AddMediator(builder.Configuration);
 builder.Services.AddOpenApi(options =>
 {
     options.AddSecurityScheme(JwtBearerDefaults.AuthenticationScheme, scheme =>
