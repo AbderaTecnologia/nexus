@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="DapperExtensions" Version="1.7.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
     <ProjectReference Include="..\Nexus.Tarefas.Domain\Nexus.Tarefas.Domain.csproj" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />

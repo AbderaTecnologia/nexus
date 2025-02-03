@@ -1,6 +1,0 @@
-@Nexus.NotaFiscal.Api_HostAddress = http://localhost:5152
-
-GET {{Nexus.NotaFiscal.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

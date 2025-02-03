@@ -8,5 +8,5 @@ public class GetTasksCommandHandler : IRequestHandler<GetTasksCommand, IResult>
     public async Task<IResult> Handle(
         GetTasksCommand request,
         CancellationToken cancellationToken
-    ) => Results.Ok(await new Task<object?>(null!));
+    ) => Results.Ok(Task.FromResult(new Domain.Entities.Task()));
 }

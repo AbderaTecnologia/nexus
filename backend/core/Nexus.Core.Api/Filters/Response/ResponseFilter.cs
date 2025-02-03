@@ -56,10 +56,8 @@ public sealed class ResponseFilter : IEndpointFilter
 
         if (isSuccess)
             return new ResponseBase<object?>(value);
-        else
-        {
-            var errorMessage = (value is not null) ? value.ToString() : ((HttpStatusCode)statusCode!).ToString();
-            return new ResponseBase<object?>(errorMessage);
-        }
+        
+        var errorMessage = (value is not null) ? value.ToString() : ((HttpStatusCode)statusCode!).ToString();
+        return new ResponseBase<object?>(errorMessage);
     }
 }
