@@ -9,6 +9,5 @@ public sealed class Company
     public CompanyType Type { get; init; }
     public Guid? ManagedById { get; init; }
     public Company? ManagedBy { get; init; }
-    public ICollection<Company> ManagedCompanies { get; set; } = new List<Company>();
-
+    public ICollection<Company> ManagedCompanies { get; set; } = [];
 }
