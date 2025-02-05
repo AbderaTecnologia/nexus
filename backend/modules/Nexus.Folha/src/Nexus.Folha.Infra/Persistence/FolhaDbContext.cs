@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Nexus.Folha.Domain.Entities;
 
 namespace Nexus.Folha.Infra.Persistence;
 
 public class FolhaDbContext(DbContextOptions<FolhaDbContext> options) : DbContext(options)
 {
-
-    // Defina seus DbSets aqui
-    // public DbSet<YourEntity> YourEntities { get; set; }
+    public DbSet<Funcionario> Funcionarios { get; set; }
 }

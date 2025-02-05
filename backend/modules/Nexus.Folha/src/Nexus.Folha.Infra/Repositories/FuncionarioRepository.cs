@@ -1,62 +1,64 @@
-using System.Data;
-using DapperExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Nexus.Folha.Domain.Entities;
+using Nexus.Folha.Infra.Persistence;
 
 namespace Nexus.Folha.Infra.Repositories;
 
-public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger, IDbConnection connection) : IFuncionarioRepository
+public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> _logger, FolhaDbContext _context) : IFuncionarioRepository
 {
     public async Task<IEnumerable<Funcionario>> Get()
     {
         try
         {
-            return await connection.GetListAsync<Funcionario>();
+            return await _context.Funcionarios.ToListAsync();
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao buscar funcionários");
+            _logger.LogError(e, "Erro ao buscar funcionários");
             return null!;
         }
-        
     }
 
     public async Task<Funcionario?> Get(Guid id)
     {
         try
         {
-          return await connection.GetAsync<Funcionario>(id.ToString());  
+            return await _context.Funcionarios.FindAsync(id);
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao buscar funcionário");
+            _logger.LogError(e, "Erro ao buscar funcionário");
             return null;
         }
     }
 
-    public async Task<bool?> Create(Funcionario Funcionario)
+    public async Task<bool?> Create(Funcionario funcionario)
     {
         try
         {
-            await connection.InsertAsync(Funcionario);
+            await _context.Funcionarios.AddAsync(funcionario);
+            await _context.SaveChangesAsync();
             return true;
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao inserir funcionário");
+            _logger.LogError(e, "Erro ao inserir funcionário");
             return null;
         }
     }
-    
+
     public async Task<bool?> Update(Funcionario funcionario)
     {
         try
         {
-            return await connection.UpdateAsync(funcionario);
+            _context.Funcionarios.Update(funcionario);
+            await _context.SaveChangesAsync();
+            return true;
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao atualizar funcionário");
+            _logger.LogError(e, "Erro ao atualizar funcionário");
             return null;
         }
     }
@@ -65,16 +67,19 @@ public sealed class FuncionarioRepository(ILogger<FuncionarioRepository> logger,
     {
         try
         {
-            var Funcionario = new Funcionario
+            var funcionario = await _context.Funcionarios.FindAsync(id);
+            if (funcionario == null)
             {
-                Id = id
-            };
-            
-            return await connection.DeleteAsync(Funcionario);
+                return false;
+            }
+
+            _context.Funcionarios.Remove(funcionario);
+            await _context.SaveChangesAsync();
+            return true;
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Erro ao deletar funcionário");
+            _logger.LogError(e, "Erro ao deletar funcionário");
             return null;
         }
     }
