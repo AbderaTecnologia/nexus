@@ -8,6 +8,7 @@ namespace Nexus.Core.Infra.Interceptors;
 public class CompanyIdInterceptor(IHttpContextAccessor httpContextAccessor) : SaveChangesInterceptor
 {
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+    public Guid CompanyId => AuthenticatedUser.FromClaimsPrincipal(_httpContextAccessor.HttpContext.User).CompanyId;
 
     public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
     {

@@ -2,7 +2,6 @@ using MediatR;
 using Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 using Nexus.Auth.Application.Handlers.Users.LoginHandler;
 using Nexus.Auth.Application.Models;
-using Nexus.Auth.Domain.Entities;
 using Nexus.Core.Api.Extensions;
 using static System.Net.HttpStatusCode;
 
@@ -22,7 +21,7 @@ public static class AuthEndpoints
             group.MapPost("/register", (CreateUserCommand createUserCommand, IMediator mediator) =>
                 mediator.Send(createUserCommand))
                 .WithDescription("Criação de usuário")
-                .ProducesResponse<User>(OK)
+                .ProducesResponse(OK)
                 .ProducesResponse(BadRequest);
         });
 }

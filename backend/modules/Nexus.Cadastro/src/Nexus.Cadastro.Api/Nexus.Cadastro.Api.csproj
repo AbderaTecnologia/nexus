@@ -9,7 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="APIWeaver.OpenApi" Version="2.7.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
+      <PackageReference Include="Scalar.AspNetCore" Version="2.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\core\Nexus.Core.Api\Nexus.Core.Api.csproj" />
+      <ProjectReference Include="..\..\..\..\core\Nexus.Core.Infra\Nexus.Core.Infra.csproj" />
+      <ProjectReference Include="..\Nexus.Cadastro.Application\Nexus.Cadastro.Application.csproj" />
     </ItemGroup>
 
 </Project>
