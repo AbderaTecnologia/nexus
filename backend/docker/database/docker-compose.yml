@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: nexus_user
       POSTGRES_PASSWORD: N&xu$@d0r141
-      POSTGRES_DB: default_database
+      POSTGRES_DB: auth_database
       POSTGRES_MULTIPLE_DATABASES: cadastro_database,tarefas_database
     ports:
       - "5433:5432"

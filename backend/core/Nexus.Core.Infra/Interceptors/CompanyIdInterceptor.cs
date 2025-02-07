@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nexus.Core.Domain.Entities.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Nexus.Core.Domain.Entities;
+using Nexus.Core.Application.Models;
 
 namespace Nexus.Core.Infra.Interceptors;
 
@@ -23,6 +24,11 @@ public class CompanyIdInterceptor(IHttpContextAccessor httpContextAccessor) : Sa
                     if (entry.Entity is ICompanyId companyEntity)
                     {
                         companyEntity.CompanyId = user.CompanyId;
+                    }
+
+                    if(entry.Entity is Cliente cliente)
+                    {
+                        cliente.ContabilidadeId = user.CompanyId;
                     }
                 }
             }
