@@ -1,4 +1,6 @@
-namespace Nexus.Core.Domain.Entities;
+using Nexus.Core.Domain.Entities;
+
+namespace Nexus.Cadastro.Domain.Entities;
 
 public class Cliente : Company
 {
