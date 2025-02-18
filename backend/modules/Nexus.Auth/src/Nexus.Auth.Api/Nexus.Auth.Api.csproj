@@ -5,13 +5,14 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>true</InvariantGlobalization>
-        <PublishAot>true</PublishAot>
+        <PublishAot>false</PublishAot>
         <RootNamespace>Nexus.Auth.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="APIWeaver.OpenApi" Version="2.7.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2" />
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.3.1" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.0.11" />
     </ItemGroup>

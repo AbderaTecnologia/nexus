@@ -16,12 +16,12 @@ public static class AuthEndpoints
                 mediator.Send(new LoginCommand { Username = loginRequest.Username, Password = loginRequest.Password }))
                 .WithDescription("Login de usuário")
                 .ProducesResponse<LoginResponse>(OK)
-                .ProducesResponse(Unauthorized);
+                .ProducesResponse(BadRequest);
 
             group.MapPost("/register", (CreateUserCommand createUserCommand, IMediator mediator) =>
                 mediator.Send(createUserCommand))
                 .WithDescription("Criação de usuário")
-                .ProducesResponse(OK)
+                .ProducesResponse(Created)
                 .ProducesResponse(BadRequest);
         });
 }

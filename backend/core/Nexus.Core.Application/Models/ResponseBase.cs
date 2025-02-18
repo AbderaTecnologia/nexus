@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
-
-namespace Nexus.Core.Api.Filters.Response;
+namespace Nexus.Core.Application.Models;
 
 public sealed class ResponseBase<T>
 {

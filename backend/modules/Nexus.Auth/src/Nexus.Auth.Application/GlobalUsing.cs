@@ -1,0 +1,12 @@
+global using MediatR;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.IdentityModel.Tokens;
+global using Nexus.Auth.Application.Models;
+global using Nexus.Auth.Infra.Persistence;
+global using Nexus.Core.Application.Models.Jwt;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using Microsoft.AspNetCore.Http;
+global using static Microsoft.AspNetCore.Http.Results;

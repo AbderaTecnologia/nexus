@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -7,7 +5,7 @@ services:
       POSTGRES_USER: nexus_user
       POSTGRES_PASSWORD: N&xu$@d0r141
       POSTGRES_DB: auth_database
-      POSTGRES_MULTIPLE_DATABASES: cadastro_database,tarefas_database
+      POSTGRES_MULTIPLE_DATABASES: cadastro_database, tarefas_database
     ports:
       - "5433:5432"
     volumes:

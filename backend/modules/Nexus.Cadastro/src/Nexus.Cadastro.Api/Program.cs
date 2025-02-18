@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
 
-builder.Services.AddSingleton<CompanyIdInterceptor>();
+builder.Services.AddSingleton<AuditableEntityInterceptor>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddMediator();

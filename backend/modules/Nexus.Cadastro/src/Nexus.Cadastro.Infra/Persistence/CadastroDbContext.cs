@@ -5,7 +5,7 @@ using Nexus.Core.Infra.Interceptors;
 
 namespace Nexus.Cadastro.Infra.Persistence;
 
-public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, CompanyIdInterceptor companyIdInterceptor) : DbContext(options)
+public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
 {
     public DbSet<Company> Companies { get; set; }
     public DbSet<Contabilidade> Contabilidades { get; set; }

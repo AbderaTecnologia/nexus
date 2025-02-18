@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using Nexus.Core.Api.Filters.Response;
+using Nexus.Core.Application.Models;
 
 namespace Nexus.Core.Api.Extensions;
 

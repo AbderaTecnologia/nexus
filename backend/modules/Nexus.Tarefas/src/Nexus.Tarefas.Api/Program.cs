@@ -5,7 +5,7 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediator();
+builder.Services.AddMediator(builder.Configuration);
 builder.Services.AddOpenApi();
 builder.Services.AddConfigureJsonSerializable();
 

@@ -1,38 +1,24 @@
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Nexus.Auth.Application.Models;
-using Nexus.Auth.Infra.Persistence;
-using Nexus.Core.Application.Models.Jwt;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
 namespace Nexus.Auth.Application.Handlers.Users.LoginHandler;
 
-public class LoginCommand : IRequest<LoginResponse>
+public class LoginCommand : IRequest<IResult>
 {
     public required string Username { get; set; }
     public required string Password { get; set; }
 }
 
-public class LoginCommandHandler(
-    AuthDbContext context,
-    IConfiguration configuration
-) : IRequestHandler<LoginCommand, LoginResponse>
+public class LoginCommandHandler(AuthDbContext context, IConfiguration configuration) : IRequestHandler<LoginCommand, IResult>
 {
     private readonly AuthDbContext _context = context;
     private readonly IConfiguration _configuration = configuration;
 
-    public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<IResult> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Username == request.Username && u.Password == request.Password, cancellationToken);
 
         if (user == null)
         {
-            return new LoginResponse(Token: "", "Credencias de login inválidas");
+            return BadRequest("Credenciais de login inválidas");
         }
 
         var jwtSettings = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -48,7 +34,7 @@ public class LoginCommandHandler(
         {
             throw new InvalidOperationException("SecretKey is not configured.");
         }
-        
+
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -61,6 +47,6 @@ public class LoginCommandHandler(
 
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return new LoginResponse(tokenString);
+        return Ok(new LoginResponse(Token: tokenString));
     }
 }
