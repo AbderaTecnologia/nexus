@@ -1,12 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Nexus.Auth.Infra.Data.Connection;
-using Nexus.Auth.Infra.Extensions;
-
 namespace Nexus.Auth.Application.Extensions;
 
 [ExcludeFromCodeCoverage]
@@ -17,14 +8,15 @@ public static class HandlersInstallerExtensions
             .AddMediatR(configuration => configuration
                 .RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
                 .AddOpenBehaviors())
-            .AddHandlersDependencies();
+            .AddHandlersDependencies()
+            .AddPasswordHasher();
 
     private static IServiceCollection AddHandlersDependencies(this IServiceCollection services) =>
         services
             .AddRepositories()
             .AddAuthDatabase(services.BuildServiceProvider().GetRequiredService<IConfiguration>())
             .AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-    
+
     private static void AddOpenBehaviors(this MediatRServiceConfiguration configuration)
     {
         var types = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetInterfaces()
@@ -33,4 +25,7 @@ public static class HandlersInstallerExtensions
         foreach (var behaviorType in types)
             configuration.AddOpenBehavior(behaviorType, ServiceLifetime.Scoped);
     }
+    
+    private static IServiceCollection AddPasswordHasher(this IServiceCollection services) =>
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 }

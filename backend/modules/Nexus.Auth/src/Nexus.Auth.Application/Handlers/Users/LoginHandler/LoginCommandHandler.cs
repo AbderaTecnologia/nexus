@@ -6,17 +6,18 @@ public class LoginCommand : IRequest<IResult>
     public required string Password { get; set; }
 }
 
-public class LoginCommandHandler(AuthDbContext context, IConfiguration configuration) : IRequestHandler<LoginCommand, IResult>
+public class LoginCommandHandler(AuthDbContext context, IPasswordHasher<User> passwordHasher, IConfiguration configuration) : IRequestHandler<LoginCommand, IResult>
 {
     private readonly AuthDbContext _context = context;
+    private readonly IPasswordHasher<User> _passwordHasher = passwordHasher;
     private readonly IConfiguration _configuration = configuration;
 
     public async Task<IResult> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Username == request.Username && u.Password == request.Password, cancellationToken);
+            .FirstOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
 
-        if (user == null)
+        if (user == null || string.IsNullOrEmpty(user.Password) || _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password) == PasswordVerificationResult.Failed)
         {
             return BadRequest("Credenciais de login inválidas");
         }
@@ -47,6 +48,6 @@ public class LoginCommandHandler(AuthDbContext context, IConfiguration configura
 
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return Ok(new LoginResponse(Token: tokenString));
+        return Ok(new { Token = tokenString });
     }
 }
