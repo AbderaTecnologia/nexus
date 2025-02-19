@@ -1,6 +1,7 @@
 using APIWeaver;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Nexus.Cadastro.Api.Extensions;
 using Nexus.Cadastro.Api.Mapping;
 using Nexus.Cadastro.Application.Extensions;
 using Nexus.Core.Api.Extensions;
@@ -27,6 +28,9 @@ builder.Services.AddOpenApi(options =>
     });
     options.AddAuthResponse();
 });
+
+builder.Services.AddAuthApi(builder.Configuration);
+builder.Services.AddCadastroConfigureJsonSerializable();
 
 var app = builder.Build();
 app.MapOpenApi();
