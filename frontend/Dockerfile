@@ -25,8 +25,8 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copie o arquivo de configuração do servidor
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Exponha a porta 80
-EXPOSE 80
+# Exponha a porta 8080
+EXPOSE 8080
 
 # Comando para iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
