@@ -1,0 +1,63 @@
+name: Build, publish and deploy to MonsterASP.NET
+on: [push]
+
+jobs:
+  cadastro_api:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0
+          
+      - name: Install dependencies
+        run: dotnet restore backend/modules/Nexus.Cadastro/src/Nexus.Cadastro.Api/Nexus.Cadastro.Api.csproj
+        
+      - name: Build
+        run: dotnet build backend/modules/Nexus.Cadastro/src/Nexus.Cadastro.Api/Nexus.Cadastro.Api.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish backend/modules/Nexus.Cadastro/src/Nexus.Cadastro.Api/Nexus.Cadastro.Api.csproj --configuration Release --output ./publish --runtime win-x86 
+        
+      # - name: Test with .NET
+      #   run: dotnet test backend/modules/Nexus.Cadastro/Nexus.Cadastro.sln
+
+      - name: Deploy to MonsterASP.NET via WebDeploy
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: ${{ secrets.CADASTRO_WEBSITE_NAME }}
+          server-computer-name: ${{ secrets.CADASTRO_SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.CADASTRO_SERVER_USERNAME }}
+          server-password: ${{ secrets.CADASTRO_SERVER_PASSWORD }}
+          
+  # auth_api:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Setup .NET 9
+  #       uses: actions/setup-dotnet@v4
+  #       with:
+  #         dotnet-version: 9.0
+          
+  #     - name: Install dependencies
+  #       run: dotnet restore backend/modules/Nexus.Auth/src/Nexus.Auth.Api/Nexus.Auth.Api.csproj
+        
+  #     - name: Build
+  #       run: dotnet build backend/modules/Nexus.Auth/src/Nexus.Auth.Api/Nexus.Auth.Api.csproj --configuration Release --no-restore
+
+  #     - name: Publish
+  #       run: dotnet publish backend/modules/Nexus.Auth/src/Nexus.Auth.Api/Nexus.Auth.Api.csproj --configuration Release --output ./publish --runtime win-x86 
+        
+  #     # - name: Test with .NET
+  #     #   run: dotnet test backend/modules/Nexus.Auth/Nexus.Auth.sln
+
+  #     - name: Deploy to MonsterASP.NET via WebDeploy
+  #       uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+  #       with:
+  #         website-name: ${{ secrets.WEBSITE_NAME }}
+  #         server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+  #         server-username: ${{ secrets.SERVER_USERNAME }}
+  #         server-password: ${{ secrets.SERVER_PASSWORD }}
