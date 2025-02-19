@@ -11,3 +11,5 @@ publish*
 .env
 package-lock.json
 **/dist
+
+backend/docker/database/data/*

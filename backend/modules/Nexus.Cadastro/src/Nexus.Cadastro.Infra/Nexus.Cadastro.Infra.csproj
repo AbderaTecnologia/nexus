@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\core\Nexus.Core.Domain\Nexus.Core.Domain.csproj" />
+      <ProjectReference Include="..\..\..\..\core\Nexus.Core.Infra\Nexus.Core.Infra.csproj" />
+      <ProjectReference Include="..\Nexus.Cadastro.Domain\Nexus.Cadastro.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
