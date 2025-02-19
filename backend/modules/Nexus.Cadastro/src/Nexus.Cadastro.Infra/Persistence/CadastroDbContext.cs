@@ -1,8 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
-using Nexus.Core.Domain.Entities;
-using Nexus.Core.Infra.Interceptors;
-
 namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
@@ -47,7 +42,7 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
             .HasMaxLength(14)
             .IsRequired();
 
-        modelBuilder.Entity<Cliente>()
+        modelBuilder.Entity<Company>()
             .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
     }
 }
