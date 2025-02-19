@@ -2,7 +2,6 @@ using MediatR;
 using Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 using Nexus.Auth.Application.Handlers.Users.LoginHandler;
 using Nexus.Auth.Application.Models;
-using Nexus.Auth.Domain.Entities;
 using Nexus.Core.Api.Extensions;
 using static System.Net.HttpStatusCode;
 
@@ -17,12 +16,12 @@ public static class AuthEndpoints
                 mediator.Send(new LoginCommand { Username = loginRequest.Username, Password = loginRequest.Password }))
                 .WithDescription("Login de usuário")
                 .ProducesResponse<LoginResponse>(OK)
-                .ProducesResponse(Unauthorized);
+                .ProducesResponse(BadRequest);
 
             group.MapPost("/register", (CreateUserCommand createUserCommand, IMediator mediator) =>
                 mediator.Send(createUserCommand))
                 .WithDescription("Criação de usuário")
-                .ProducesResponse<User>(OK)
+                .ProducesResponse(Created)
                 .ProducesResponse(BadRequest);
         });
 }

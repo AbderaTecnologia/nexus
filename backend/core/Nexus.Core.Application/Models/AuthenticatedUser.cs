@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Nexus.Core.Domain.Entities;
+namespace Nexus.Core.Application.Models;
 
 public class AuthenticatedUser
 {

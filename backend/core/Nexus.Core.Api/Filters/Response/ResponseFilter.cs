@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Nexus.Core.Application.Models;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Nexus.Core.Api.Filters.Response;

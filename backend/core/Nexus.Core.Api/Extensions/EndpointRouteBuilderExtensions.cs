@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Nexus.Core.Api.Filters.Response;
+using Nexus.Core.Application.Models;
 
 namespace Nexus.Core.Api.Extensions;
 
