@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/auth': {
-        target: 'http://nexusapi.runasp.net/',
+        target: 'http://nexusapi.runasp.net',
         changeOrigin: true,
         secure: false
       },
