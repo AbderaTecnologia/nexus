@@ -25,3 +25,5 @@ build
 *.sln
 *.sw?
 .vite-cache/
+# Sentry Config File
+.env.sentry-build-plugin
