@@ -1,21 +1,12 @@
-name: 'nexus-front-app'
-
 services:
   app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexus-front
     image: nexus-front
     ports:
       - "8080:8080"
     restart: always
     volumes:
-      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
-    networks:
-      network:
-         ipv4_address: 3.10.0.64
-
-networks:
-  network:
-    driver: bridge
-    ipam:
-      config:
-          - subnet: 3.10.0.0/16
-            gateway: 3.10.0.1
+      - "./Caddyfile:/etc/caddy/Caddyfile:ro"

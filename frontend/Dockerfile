@@ -16,13 +16,8 @@ COPY . .
 # Construa o projeto
 RUN npm run build
 
-# Use uma imagem base do Nginx para servir o aplicativo
-FROM nginx:alpine
+# Use uma imagem base do Caddy para servir o aplicativo
+FROM caddy:alpine
 
-# Copie os arquivos construídos para o diretório padrão do Nginx
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Copie o arquivo de configuração do servidor
-COPY ./nginx/nginx.conf /etc/nginx
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# Copie os arquivos construídos para o diretório padrão do Caddy
+COPY --from=build /app/build /usr/share/caddy

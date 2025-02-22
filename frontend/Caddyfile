@@ -1,0 +1,34 @@
+{
+    debug
+}
+
+:8080 {
+    root * /usr/share/caddy
+    file_server
+
+    # Reverse proxy to the Nexus Auth API
+    rewrite /api/auth* /api/auth{uri}
+    handle_path /api/auth* {
+        reverse_proxy nexusapi.runasp.net {
+            header_up Host {http.reverse_proxy.upstream.hostport}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Uri {uri}
+        }
+    }
+
+    # Reverse proxy to the Nexus Cadastro API
+    rewrite /api/cadastro* /api/cadastro{uri}
+    handle_path /api/cadastro* {
+        reverse_proxy nexuscadastro.runasp.net {
+            header_up Host {http.reverse_proxy.upstream.hostport}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Uri {uri}
+        }
+    }
+
+    encode gzip zstd
+}
