@@ -21,3 +21,6 @@ FROM caddy:alpine
 
 # Copie os arquivos construídos para o diretório padrão do Caddy
 COPY --from=build /app/build /usr/share/caddy
+
+# Copie o arquivo Caddyfile para o diretório padrão do Caddy
+COPY Caddyfile /etc/caddy/Caddyfile
