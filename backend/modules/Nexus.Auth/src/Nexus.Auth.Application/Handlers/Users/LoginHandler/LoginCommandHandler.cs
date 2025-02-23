@@ -8,21 +8,17 @@ public class LoginCommand : IRequest<IResult>
 
 public class LoginCommandHandler(AuthDbContext context, IPasswordHasher<User> passwordHasher, IConfiguration configuration) : IRequestHandler<LoginCommand, IResult>
 {
-    private readonly AuthDbContext _context = context;
-    private readonly IPasswordHasher<User> _passwordHasher = passwordHasher;
-    private readonly IConfiguration _configuration = configuration;
-
     public async Task<IResult> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await _context.Users
+        var user = await context.Users
             .FirstOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
 
-        if (user == null || string.IsNullOrEmpty(user.Password) || _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password) == PasswordVerificationResult.Failed)
+        if (user == null || string.IsNullOrEmpty(user.Password) || passwordHasher.VerifyHashedPassword(user, user.Password, request.Password) == PasswordVerificationResult.Failed)
         {
             return BadRequest("Credenciais de login inválidas");
         }
 
-        var jwtSettings = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
+        var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
         var claims = new[]
         {
@@ -38,16 +34,20 @@ public class LoginCommandHandler(AuthDbContext context, IPasswordHasher<User> pa
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var tokenHandler = new JwtSecurityTokenHandler();
 
-        var token = new JwtSecurityToken(
-            issuer: jwtSettings.Issuer,
-            audience: jwtSettings.Audience,
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(jwtSettings.ExpirationInMinutes),
-            signingCredentials: creds);
-
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddMinutes(jwtSettings.ExpirationInMinutes),
+            SigningCredentials = creds,
+            Issuer = jwtSettings.Issuer,
+            Audience = jwtSettings.Audience
+        };
+            
+        var token = tokenHandler.CreateToken(tokenDescriptor);
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return Ok(new { Token = tokenString });
+        return Ok(new { Token = tokenString, User = new { UserId = user.Id, UserName = user.FullName, Email = user.Username } });
     }
 }

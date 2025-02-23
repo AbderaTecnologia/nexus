@@ -2,6 +2,7 @@ namespace Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 
 public class CreateUserCommand : IRequest<IResult>
 {
+    public required string FullName { get; set; }
     public required string Username { get; set; }
     public required string Password { get; set; }
     public Guid CompanyId { get; set; }
@@ -15,6 +16,7 @@ public class CreateUserCommandHandler(AuthDbContext context, IPasswordHasher<Use
     public async Task<IResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = new User(
+            fullName: request.FullName,
             username: request.Username,
             companyId: request.CompanyId
         );

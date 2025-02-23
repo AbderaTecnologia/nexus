@@ -1,6 +1,7 @@
 using MediatR;
 using Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 using Nexus.Auth.Application.Handlers.Users.LoginHandler;
+using Nexus.Auth.Application.Handlers.Users.LogoutHandler;
 using Nexus.Auth.Application.Models;
 using Nexus.Core.Api.Extensions;
 using static System.Net.HttpStatusCode;
@@ -23,5 +24,21 @@ public static class AuthEndpoints
                 .WithDescription("Criação de usuário")
                 .ProducesResponse(Created)
                 .ProducesResponse(BadRequest);
+
+            group.MapPost("/logout", (LogoutCommand logoutCommand, IMediator mediator) =>
+                mediator.Send(logoutCommand))
+                .WithDescription("Logout de usuário")
+                .ProducesResponse(OK)
+                .ProducesResponse(BadRequest);
+
+            group.MapGet("/test-auth", async (IMediator mediator) =>
+            {
+                // This is a placeholder for actual authentication testing logic
+                return Results.Ok(new { Message = "Authentication successful" });
+            })
+            .RequireAuthorization()
+            .WithDescription("Test authentication")
+            .ProducesResponse(OK)
+            .ProducesResponse(Unauthorized);
         });
 }
