@@ -7,7 +7,7 @@ namespace Nexus.Cadastro.Api.Endpoints;
 public static class ContadorEndpoints
 {
     public static IEndpointRouteBuilder MapContadorEndpoints(this IEndpointRouteBuilder builder) =>
-        builder.MapGroup("Contador","/api/contador", group =>
+        builder.MapGroup("Contador","/api/cadastro/contador", group =>
         {
             group.MapPost("/", async (CreateContadorCommand command, IMediator mediator) => await mediator.Send(command))
                 .WithDescription("Cria um contador")

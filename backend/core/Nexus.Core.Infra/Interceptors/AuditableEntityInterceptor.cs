@@ -18,6 +18,8 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
     {
         var user = AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User);
         SetAuditInfoAdded(user, eventData.Context);
+        SetAuditInfoModified(user, eventData.Context);
+        SetCompanyId(eventData.Context);
 
         return base.SavingChanges(eventData, result);
     }
@@ -30,6 +32,8 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
     {
         var user = AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User);
         SetAuditInfoAdded(user, eventData.Context);
+        SetAuditInfoModified(user, eventData.Context);
+        SetCompanyId(eventData.Context);
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
@@ -47,6 +51,19 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
                     throw new InvalidOperationException($"Cannot set an empty CompanyId on {e.GetType()} entity.");
 
                 e.CompanyId = CompanyId;
+            });
+        
+        context?.ChangeTracker
+            .Entries()
+            .Select(e => e.Entity)
+            .OfType<ICustomerCompany>()
+            .Where(e => e.ContabilidadeId == Guid.Empty)
+            .ForEach(e =>
+            {
+                if (CompanyId == Guid.Empty)
+                    throw new InvalidOperationException($"Cannot set an empty CompanyId on {e.GetType()} entity.");
+                    
+                e.ContabilidadeId = CompanyId;
             });
     }
 

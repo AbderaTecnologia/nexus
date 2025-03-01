@@ -6,7 +6,7 @@ public class User(
     Guid companyId
 )
 {
-    public int Id { get; init; }
+    public Guid Id { get; init; } = Guid.NewGuid();
     public string FullName { get; init; } = Guard.Against.NullOrEmpty(fullName, nameof(fullName));
     public string Username { get; init; } = Guard.Against.NullOrEmpty(username, nameof(username));
     public string? Password { get; private set; }

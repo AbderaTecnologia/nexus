@@ -25,6 +25,6 @@ public class CreateContadorCommandHandler(CadastroDbContext _context, IAuthServi
             return BadRequest("Erro ao criar usuário administrador");
         }
 
-        return Created($"/api/cadastro/contador/{contabilidade.Id}", contabilidade.Id);
+        return Created($"{contabilidade.Id}", new { ContabilidadeId = contabilidade.Id });
     }
 }

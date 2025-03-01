@@ -12,7 +12,7 @@ public class AuthenticatedUser
         return new AuthenticatedUser
         {
             UserId = Guid.Parse(principal.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString()),
-            CompanyId = Guid.Parse(principal.FindFirst("companyId")?.Value ?? Guid.Empty.ToString())
+            CompanyId = Guid.Parse(principal.FindFirst("CompanyId")?.Value ?? Guid.Empty.ToString())
         };
     }
 }

@@ -45,4 +45,9 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
         modelBuilder.Entity<Company>()
             .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(companyIdInterceptor);
+    }
 }
