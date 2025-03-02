@@ -1,8 +1,13 @@
 name: Build, publish and deploy to MonsterASP.NET
-on: [push]
+on:
+  push:
+    paths:
+      - 'backend/modules/Nexus.Cadastro/**'
+      - 'backend/modules/Nexus.Auth/**'
 
 jobs:
   cadastro_api:
+    if: contains(github.event.head_commit.message, 'Nexus.Cadastro')
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +38,7 @@ jobs:
           server-password: ${{ secrets.CADASTRO_SERVER_PASSWORD }}
           
   auth_api:
+    if: contains(github.event.head_commit.message, 'Nexus.Auth')
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
