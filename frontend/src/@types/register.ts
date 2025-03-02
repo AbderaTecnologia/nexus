@@ -10,3 +10,9 @@ export type Customer = {
     phone: string
     cpfCnpj: string
 }
+
+export type CustomerRequest = {
+    nome: string,
+    cpfCnpj: string,
+    email: string,
+}

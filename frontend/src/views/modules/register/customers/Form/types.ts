@@ -1,12 +1,9 @@
 import type { Control, FieldErrors } from 'react-hook-form'
 
 export type OverviewFields = {
-    firstName: string
-    lastName: string
+    nome: string
+    cpfCnpj: string
     email: string
-    dialCode: string
-    phoneNumber: string
-    img: string
 }
 
 export type AddressFields = {
@@ -29,11 +26,11 @@ export type AccountField = {
     accountVerified?: boolean
 }
 
-export type CustomerFormSchema = OverviewFields &
-    AddressFields &
-    ProfileImageFields &
-    TagsFields &
-    AccountField
+export type CustomerFormSchema = OverviewFields //&
+    // AddressFields &
+    // ProfileImageFields &
+    // TagsFields &
+    // AccountField
 
 export type FormSectionBaseProps = {
     control: Control<CustomerFormSchema>

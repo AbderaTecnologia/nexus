@@ -9,6 +9,7 @@ import sleep from '@/utils/sleep'
 import { TbTrash } from 'react-icons/tb'
 import { useNavigate } from 'react-router-dom'
 import type { CustomerFormSchema } from '../Form'
+import { apiPostCustomer } from '@/services/modules/cadastro/CustomersService'
 
 const CustomerEdit = () => {
     const navigate = useNavigate()
@@ -20,22 +21,22 @@ const CustomerEdit = () => {
     const handleFormSubmit = async (values: CustomerFormSchema) => {
         console.log('Submitted values', values)
         setIsSubmiting(true)
-        await sleep(800)
+        await apiPostCustomer(values)
         setIsSubmiting(false)
         toast.push(
-            <Notification type="success">Customer created!</Notification>,
+            <Notification type="success">Cliente cadastrado!</Notification>,
             { placement: 'top-center' },
         )
-        navigate('/concepts/customers/customer-list')
+        navigate('/register/customers/list')
     }
 
     const handleConfirmDiscard = () => {
         setDiscardConfirmationOpen(true)
         toast.push(
-            <Notification type="success">Customer discardd!</Notification>,
+            <Notification type="success">Cadastro de cliente descartado!</Notification>,
             { placement: 'top-center' },
         )
-        navigate('/concepts/customers/customer-list')
+        navigate('/register/customers/list')
     }
 
     const handleDiscard = () => {
@@ -51,17 +52,9 @@ const CustomerEdit = () => {
             <CustomerForm
                 newCustomer
                 defaultValues={{
-                    firstName: '',
-                    lastName: '',
+                    nome: '',
+                    cpfCnpj: '',
                     email: '',
-                    img: '',
-                    phoneNumber: '',
-                    dialCode: '',
-                    country: '',
-                    address: '',
-                    city: '',
-                    postcode: '',
-                    tags: [],
                 }}
                 onFormSubmit={handleFormSubmit}
             >
@@ -78,14 +71,14 @@ const CustomerEdit = () => {
                                 icon={<TbTrash />}
                                 onClick={handleDiscard}
                             >
-                                Discard
+                                Descartar
                             </Button>
                             <Button
                                 variant="solid"
                                 type="submit"
                                 loading={isSubmiting}
                             >
-                                Create
+                                Criar
                             </Button>
                         </div>
                     </div>
@@ -94,15 +87,15 @@ const CustomerEdit = () => {
             <ConfirmDialog
                 isOpen={discardConfirmationOpen}
                 type="danger"
-                title="Discard changes"
+                title="Descartar"
                 onClose={handleCancel}
                 onRequestClose={handleCancel}
                 onCancel={handleCancel}
                 onConfirm={handleConfirmDiscard}
             >
                 <p>
-                    Are you sure you want discard this? This action can&apos;t
-                    be undo.{' '}
+                    Tem certeza de que deseja descartar o cadastro do novo cliente? Esta ação não pode
+                    ser desfeita.
                 </p>
             </ConfirmDialog>
         </>

@@ -22,22 +22,14 @@ type CustomerFormProps = {
 } & CommonProps
 
 const validationSchema: ZodType<CustomerFormSchema> = z.object({
-    firstName: z.string().min(1, { message: 'First name required' }),
-    lastName: z.string().min(1, { message: 'Last name required' }),
+    nome: z.string().min(1, { message: 'Nome ou Razão Social obrigatório' }),
     email: z
         .string()
-        .min(1, { message: 'Email required' })
-        .email({ message: 'Invalid email' }),
-    dialCode: z.string().min(1, { message: 'Please select your country code' }),
-    phoneNumber: z
-        .string()
-        .min(1, { message: 'Please input your mobile number' }),
-    country: z.string().min(1, { message: 'Please select a country' }),
-    address: z.string().min(1, { message: 'Addrress required' }),
-    postcode: z.string().min(1, { message: 'Postcode required' }),
-    city: z.string().min(1, { message: 'City required' }),
-    img: z.string(),
-    tags: z.array(z.object({ value: z.string(), label: z.string() })),
+        .min(1, { message: 'Email obrigatório' })
+        .email({ message: 'Email inválido' }),
+    cpfCnpj: z.string()
+        .min(11, {message: 'Cpf ou Cnpj obrigatório'})
+        .max(14, {message: 'Documento inválido'}),
 })
 
 const CustomerForm = (props: CustomerFormProps) => {
@@ -55,10 +47,6 @@ const CustomerForm = (props: CustomerFormProps) => {
         control,
     } = useForm<CustomerFormSchema>({
         defaultValues: {
-            ...{
-                banAccount: false,
-                accountVerified: true,
-            },
             ...defaultValues,
         },
         resolver: zodResolver(validationSchema),
