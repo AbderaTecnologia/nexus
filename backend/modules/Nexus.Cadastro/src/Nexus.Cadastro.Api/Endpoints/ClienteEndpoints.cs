@@ -3,7 +3,6 @@ using Nexus.Cadastro.Application.Handlers.Clientes.Create;
 using Nexus.Cadastro.Application.Handlers.Clientes.List;
 using Nexus.Cadastro.Application.Models;
 using Nexus.Core.Api.Extensions;
-using Nexus.Core.Api.Filters.Authorization;
 
 namespace Nexus.Cadastro.Api.Endpoints;
 

@@ -76,9 +76,9 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
             .ForEach(e =>
             {
                 e.Entity.CreatedBy = user.UserId;
-                e.Entity.CreatedAt = DateTime.Now;
+                e.Entity.CreatedAt = DateTime.UtcNow;
                 e.Entity.UpdatedBy = user.UserId;
-                e.Entity.UpdatedAt = DateTime.Now;
+                e.Entity.UpdatedAt = DateTime.UtcNow;
             });
     }
 
@@ -91,7 +91,7 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
             .ForEach(e =>
             {
                 e.Entity.UpdatedBy = user.UserId;
-                e.Entity.UpdatedAt = DateTime.Now;
+                e.Entity.UpdatedAt = DateTime.UtcNow;
             });
     }
 }

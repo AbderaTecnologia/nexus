@@ -48,6 +48,6 @@ public class LoginCommandHandler(AuthDbContext context, IPasswordHasher<User> pa
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return Ok(new { Token = tokenString, User = new { UserId = user.Id, UserName = user.FullName, Email = user.Username } });
+        return Ok(new { Token = new {AccessToken = tokenString , RefreshToken = "" } , User = new { UserId = user.Id, UserName = user.FullName, Email = user.Username } });
     }
 }
