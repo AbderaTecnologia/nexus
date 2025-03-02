@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import authRoute from './authRoute'
 import othersRoute from './othersRoute'
 import type { Routes } from '@/@types/routes'
+import registerRoute from './registerRoute'
 
 export const publicRoutes: Routes = [...authRoute]
 
@@ -12,12 +13,12 @@ export const protectedRoutes: Routes = [
         component: lazy(() => import('@/views/Home')),
         authority: [],
     },
-    {
-        key: 'folha.funcionarios',
-        path: '/folha/funcionarios',
-        component: lazy(() => import('@/views/folha/FuncionarioList')),
-        authority: [],
-    },
+    // {
+    //     key: 'folha.funcionarios',
+    //     path: '/folha/funcionarios',
+    //     component: lazy(() => import('@/views/folha/FuncionarioList')),
+    //     authority: [],
+    // },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',
@@ -60,4 +61,5 @@ export const protectedRoutes: Routes = [
         authority: [],
     },
     ...othersRoute,
+    ...registerRoute,
 ]

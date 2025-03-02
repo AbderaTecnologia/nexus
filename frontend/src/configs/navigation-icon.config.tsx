@@ -7,6 +7,7 @@ import {
     PiBagSimpleDuotone,
 } from 'react-icons/pi'
 import { TiBusinessCard } from "react-icons/ti";
+import { MdAppRegistration } from "react-icons/md";
 import type { JSX } from 'react'
 
 export type NavigationIcons = Record<string, JSX.Element>
@@ -19,6 +20,7 @@ const navigationIcon: NavigationIcons = {
     groupCollapseMenu: <PiBookBookmarkDuotone />,
     groupMenu: <PiBagSimpleDuotone />,
     folha: <TiBusinessCard />,
+    register: <MdAppRegistration/>,
 }
 
 export default navigationIcon

@@ -24,7 +24,7 @@ export default defineConfig({
         secure: false
       },
       '/api/cadastro': {
-        target: 'http://nexuscadastro.runasp.net',
+        target: 'http://localhost:5013',
         changeOrigin: true,
         secure: false
       }

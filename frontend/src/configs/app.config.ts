@@ -13,7 +13,7 @@ const appConfig: AppConfig = {
     authenticatedEntryPath: '/home',
     unAuthenticatedEntryPath: '/sign-in',
     locale: 'pt-BR',
-    accessTokenPersistStrategy: 'cookies',
+    accessTokenPersistStrategy: 'localStorage',
     enableMock: false,
     activeNavTranslation: false,
 }

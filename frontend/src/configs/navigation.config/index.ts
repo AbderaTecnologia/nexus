@@ -10,7 +10,7 @@ const navigationConfig: NavigationTree[] = [
     {
         key: 'home',
         path: '/home',
-        title: 'Home',
+        title: 'Inicio',
         translateKey: 'nav.home',
         icon: 'home',
         type: NAV_ITEM_TYPE_ITEM,
@@ -18,24 +18,23 @@ const navigationConfig: NavigationTree[] = [
         subMenu: [],
     },
     {
-        key: 'folha',
-        path: '/folha',
-        title: 'Folha',
-        translateKey: 'nav.folha',
-        icon: 'folha',
+        key: 'register',
+        path: '/register',
+        title: 'Cadastro',
+        translateKey: 'nav.register',
+        icon: 'register',
         type: NAV_ITEM_TYPE_COLLAPSE,
         authority: [],
         subMenu: [
             {
-                key: 'folha.funcionarios',
-                path: '/folha/funcionarios',
-                title: 'Funcionários',
-                translateKey: 'nav.folha.funcionarios',
+                key: 'register.customers',
+                path: '/register/customers',
+                title: 'Clientes',
+                translateKey: 'nav.register.customers',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],
-
             }
         ],
     },
