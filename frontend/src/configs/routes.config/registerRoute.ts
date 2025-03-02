@@ -3,7 +3,7 @@ import type { Routes } from "@/@types/routes";
 
 const registerRoute: Routes = [
     {
-        key: "register",
+        key: "register.customers",
         path: "/register/customers",
         component: lazy(() => import("@/views/modules/register/customers/List/ListCustomers")),
         authority: [],
