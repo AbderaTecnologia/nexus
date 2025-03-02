@@ -27,7 +27,12 @@ export default defineConfig({
         target: 'http://localhost:5013',
         changeOrigin: true,
         secure: false
-      }
+      },
+      '/api/dashboard': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false
+      },
     }
   },
   build: {
