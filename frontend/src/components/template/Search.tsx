@@ -54,7 +54,7 @@ const ListItem = (props: {
                 <div className="flex items-center gap-2">
                     <div
                         className={classNames(
-                            'rounded-lg border-2 border-gray-200 shadow-sm text-xl group-hover:shadow h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100',
+                            'rounded-lg border-2 border-gray-200 shadow-xs text-xl group-hover:shadow-sm h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100',
                         )}
                     >
                         {icon && navigationIcon[icon]}
@@ -158,7 +158,7 @@ const _Search = ({ className }: { className?: string }) => {
                             <HiOutlineSearch className="text-xl" />
                             <input
                                 ref={inputRef}
-                                className="ring-0 outline-none block w-full p-4 text-base bg-transparent text-gray-900 dark:text-gray-100"
+                                className="ring-0 outline-hidden block w-full p-4 text-base bg-transparent text-gray-900 dark:text-gray-100"
                                 placeholder="Search..."
                                 onChange={handleSearch}
                             />

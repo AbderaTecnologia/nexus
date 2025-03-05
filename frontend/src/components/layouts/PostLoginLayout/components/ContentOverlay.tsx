@@ -96,7 +96,7 @@ const ContentOverlay = ({ children }: CommonProps) => {
                         className={classNames(
                             'fixed',
                             isSticky
-                                ? 'shadow dark:shadow-2xl'
+                                ? 'shadow-sm dark:shadow-2xl'
                                 : 'bg-transparent dark',
                         )}
                         wrapperClass="px-4 md:px-0"
