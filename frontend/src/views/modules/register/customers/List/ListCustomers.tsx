@@ -1,44 +1,24 @@
-import { Customer } from "@/@types/register";
-import { Card } from "@/components/ui";
-import Table from "@/components/ui/Table";
-import { apiGetCustomersList } from "@/services/modules/cadastro/CustomersService";
-import { useEffect, useState } from "react";
+import AdaptiveCard from '@/components/shared/AdaptiveCard'
+import Container from '@/components/shared/Container'
+import CustomerListTable from './components/CustomerListTable'
+import CustomerListActionTools from './components/CustomerListActionTools'
 
-const { Tr, Th, Td, THead, TBody } = Table;
-
-const ListCustomers = () => {
-    const [customersList, setCustomersList] = useState<Customer[]>([]);
-    useEffect(() => {
-        const getCustomersList = async () => {
-            const response = await apiGetCustomersList();
-            setCustomersList(response);
-        };
-        getCustomersList();
-    }, []);
+const CustomerList = () => {
     return (
-        <Card>
-            <Table>
-                <THead>
-                    <Tr>
-                        <Th>Nome</Th>
-                        <Th>CPF/CNPJ</Th>
-                        <Th>Tipo</Th>
-                        <Th>Email</Th>
-                    </Tr>
-                </THead>
-                <TBody>
-                    {customersList.map((customer) => (
-                        <Tr key={customer.id}>
-                            <Td>{customer.name}</Td>
-                            <Td>{customer.cpfCnpj}</Td>
-                            <Td>{customer.type}</Td>
-                            <Td>{customer.email}</Td>
-                        </Tr>
-                    ))}
-                </TBody>
-            </Table>
-        </Card>
+        <>
+            <Container>
+                <AdaptiveCard>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                            <h3>Customers</h3>
+                            <CustomerListActionTools />
+                        </div>
+                        <CustomerListTable />
+                    </div>
+                </AdaptiveCard>
+            </Container>
+        </>
     )
 }
 
-export default ListCustomers;
+export default CustomerList

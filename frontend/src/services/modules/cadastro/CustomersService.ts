@@ -26,3 +26,15 @@ export async function apiGetCustomersList() {
 export async function apiPostCustomer(data: CustomerRequest) {
   return CustomersService.postCustomer(data);
 }
+
+export async function apiGetCustomersList2<T, U extends Record<string, unknown>>(
+  params: U,
+)
+{
+  return ApiService.fetchDataWithAxios<T>(
+    {
+      url: '/cadastro/cliente/list',
+      method: 'get'
+    }
+  )
+}

@@ -19,12 +19,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/auth': {
-        target: 'http://localhost:5054',
+        target: 'http://nexusapi.runasp.net',
         changeOrigin: true,
         secure: false
       },
       '/api/cadastro': {
-        target: 'http://localhost:5013',
+        target: 'http://nexuscadastro.runasp.net',
         changeOrigin: true,
         secure: false
       },
