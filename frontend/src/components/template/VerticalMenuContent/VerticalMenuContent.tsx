@@ -27,6 +27,8 @@ export interface VerticalMenuContentProps {
 
 const { MenuGroup } = Menu
 
+const MAX_CASCADE_LEVEL = 2
+
 const VerticalMenuContent = (props: VerticalMenuContentProps) => {
     const {
         collapsed,
@@ -78,7 +80,9 @@ const VerticalMenuContent = (props: VerticalMenuContentProps) => {
                                 showIcon={cascade <= 0}
                                 userAuthority={userAuthority}
                                 showTitle={
-                                    collapsed ? cascade >= 1 : cascade <= 1
+                                    collapsed
+                                        ? cascade >= 1
+                                        : cascade <= MAX_CASCADE_LEVEL
                                 }
                                 t={t as TraslationFn}
                                 onLinkClick={handleLinkClick}
@@ -92,8 +96,8 @@ const VerticalMenuContent = (props: VerticalMenuContentProps) => {
                                 nav={nav}
                                 sideCollapsed={collapsed}
                                 direction={direction}
-                                indent={nextCascade >= 2}
-                                dotIndent={nextCascade >= 2}
+                                indent={nextCascade >= MAX_CASCADE_LEVEL}
+                                dotIndent={nextCascade >= MAX_CASCADE_LEVEL}
                                 renderAsIcon={nextCascade <= 1}
                                 userAuthority={userAuthority}
                                 t={t as TraslationFn}
@@ -109,7 +113,10 @@ const VerticalMenuContent = (props: VerticalMenuContentProps) => {
                             </VerticalCollapsedMenuItem>
                         )}
                         {nav.type === NAV_ITEM_TYPE_TITLE && (
-                            <AuthorityCheck userAuthority={userAuthority} authority={nav.authority}>
+                            <AuthorityCheck
+                                userAuthority={userAuthority}
+                                authority={nav.authority}
+                            >
                                 <MenuGroup
                                     key={nav.key}
                                     label={t(nav.translateKey) || nav.title}

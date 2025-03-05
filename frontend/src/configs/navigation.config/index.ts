@@ -17,28 +17,6 @@ const navigationConfig: NavigationTree[] = [
         authority: [],
         subMenu: [],
     },
-    {
-        key: 'folha',
-        path: '/folha',
-        title: 'Folha',
-        translateKey: 'nav.folha',
-        icon: 'folha',
-        type: NAV_ITEM_TYPE_COLLAPSE,
-        authority: [],
-        subMenu: [
-            {
-                key: 'folha.funcionarios',
-                path: '/folha/funcionarios',
-                title: 'Funcionários',
-                translateKey: 'nav.folha.funcionarios',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-
-            }
-        ],
-    },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',
