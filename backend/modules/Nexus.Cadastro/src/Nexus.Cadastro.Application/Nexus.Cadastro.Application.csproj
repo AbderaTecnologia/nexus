@@ -21,4 +21,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Nexus.Cadastro.Infra\Nexus.Cadastro.Infra.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Payloads\" />
+    </ItemGroup>
 </Project>

@@ -12,7 +12,9 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
         {
             Name = request.Nome,
             Email = request.Email,
-            Identifier = request.CpfCnpj
+            Identifier = request.CpfCnpj,
+            Endereco = request.Endereco,
+            Telefone = request.Telefone
         };
 
         cadastroDbContext.Clientes.Add(cliente);
