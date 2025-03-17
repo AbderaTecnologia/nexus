@@ -10,7 +10,7 @@ public class Endereco
     public string Cidade { get; set; }
     public string Estado { get; set; }
 
-    public  Endereco()
+    public Endereco()
     {
         EnderecoId = Guid.NewGuid();
     }
