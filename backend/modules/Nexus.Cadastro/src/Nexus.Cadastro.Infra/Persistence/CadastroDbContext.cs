@@ -27,23 +27,10 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
             .HasMaxLength(100)
             .IsRequired();
 
-        modelBuilder.Entity<Contabilidade>()
-            .HasMany(c => c.Clientes)
-            .WithOne(c => c.Contabilidade)
-            .HasForeignKey(c => c.ContabilidadeId);
-
-        modelBuilder.Entity<Cliente>()
-            .HasOne(c => c.Contabilidade)
-            .WithMany(c => c.Clientes)
-            .HasForeignKey(c => c.ContabilidadeId);
-
-        modelBuilder.Entity<Cliente>()
-            .Property(c => c.Identifier)
-            .HasMaxLength(14)
-            .IsRequired();
-
         modelBuilder.Entity<Company>()
             .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
