@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
 
@@ -8,6 +9,22 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
 {
     public async Task<IResult> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
     {
+        var validator = new CreateClienteCommandValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            var problemDetails = new ValidationProblemDetails
+            {
+                Title = "Validation Failed",
+                Status = StatusCodes.Status400BadRequest,
+                Detail = "One or more validation errors occured!",
+                Instance = "/clientes/create",
+                Errors = validationResult.ToDictionary()
+            };
+            return BadRequest(problemDetails);
+        }
+
         var cliente = new Cliente
         {
             Name = request.Nome,
