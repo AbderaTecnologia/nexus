@@ -1,3 +1,5 @@
+using Nexus.Cadastro.Infra.Data.Configuration;
+
 namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
@@ -10,8 +12,8 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
     {
         modelBuilder.Entity<Company>()
             .HasDiscriminator<string>("CompanyType")
-            .HasValue<Contabilidade>("Contabilidade")
-            .HasValue<Cliente>("Cliente");
+            .HasValue<Contabilidade>("Accounting")
+            .HasValue<Cliente>("Customer");
 
         modelBuilder.Entity<Company>()
             .Property(c => c.Id)
@@ -30,7 +32,7 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
         modelBuilder.Entity<Company>()
             .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

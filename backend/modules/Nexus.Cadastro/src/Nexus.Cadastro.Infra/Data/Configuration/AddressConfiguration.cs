@@ -1,45 +1,49 @@
-using System.Data.Entity.ModelConfiguration;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Nexus.Cadastro.Infra.Data.Configuration
 {
-    public class AddressConfiguration : EntityTypeConfiguration<Address>
+    public class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
-        public AddressConfiguration()
+        public void Configure(EntityTypeBuilder<Address> builder)
         {
-            ToTable("Addresses");
+            builder
+                .Property(a => a.Street)
+                .HasMaxLength(100)
+                .IsRequired();
 
-            HasKey(a => a.Id);
+            builder
+                .Property(a => a.Number)
+                .HasMaxLength(10)
+                .IsRequired();
 
-            Property(a => a.Street)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            Property(a => a.Number)
-                .IsRequired()
+            builder
+                .Property(a => a.Complement)
                 .HasMaxLength(50);
 
-            Property(a => a.Complement)
-                .HasMaxLength(100);
+            builder
+                .Property(a => a.Neighborhood)
+                .HasMaxLength(50)
+                .IsRequired();
 
-            Property(a => a.Neighborhood)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder
+                .Property(a => a.City)
+                .HasMaxLength(50)
+                .IsRequired();
 
-            Property(a => a.City)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder
+                .Property(a => a.State)
+                .HasMaxLength(2)
+                .IsRequired();
 
-            Property(a => a.State)
-                .IsRequired()
-                .HasMaxLength(50);
+            builder
+                .Property(a => a.Country)
+                .HasMaxLength(50)
+                .IsRequired();
 
-            Property(a => a.Country)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            Property(a => a.ZipCode)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder
+                .Property(a => a.ZipCode)
+                .HasMaxLength(8)
+                .IsRequired();
         }
     }
 }
