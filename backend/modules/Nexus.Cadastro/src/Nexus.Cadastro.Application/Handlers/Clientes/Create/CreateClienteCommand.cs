@@ -1,11 +1,13 @@
 using FluentValidation;
+using Nexus.Cadastro.Application.Models.Dtos;
 
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
 
 public sealed record CreateClienteCommand(
     string Nome,
     string Email,
-    string CpfCnpj
+    string CpfCnpj,
+    AddressDto Endereco
 ) : IRequest<IResult>;
 
 public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>

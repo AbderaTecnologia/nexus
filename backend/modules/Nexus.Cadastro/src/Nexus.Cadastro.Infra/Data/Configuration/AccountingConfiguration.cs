@@ -7,6 +7,9 @@ namespace Nexus.Cadastro.Infra.Data.Configuration
         public void Configure(EntityTypeBuilder<Contabilidade> builder)
         {
             builder
+                .ToTable("Accountings");
+                
+            builder
                 .HasMany(c => c.Clientes)
                 .WithOne(c => c.Contabilidade)
                 .HasForeignKey(c => c.ContabilidadeId);
