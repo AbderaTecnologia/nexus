@@ -36,5 +36,4 @@ namespace Nexus.Cadastro.Application.Handlers.Clientes.Create
                 .MaximumLength(16).WithMessage("WhatsApp deve conter no máximo 16 caracteres.");
         }
     }
-
 }
