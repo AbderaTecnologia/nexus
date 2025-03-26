@@ -7,10 +7,14 @@ export type OverviewFields = {
 }
 
 export type AddressFields = {
-    country: string
-    address: string
-    postcode: string
+    zipCode: string
+    street: string
+    number: string
+    neighborhood: string
     city: string
+    state: string
+    country: string
+    complement: string
 }
 
 export type ProfileImageFields = {
@@ -26,11 +30,13 @@ export type AccountField = {
     accountVerified?: boolean
 }
 
-export type CustomerFormSchema = OverviewFields //&
-    // AddressFields &
-    // ProfileImageFields &
-    // TagsFields &
-    // AccountField
+export type CustomerFormSchema = {
+    overview: OverviewFields
+    address: AddressFields
+    //profileImage: ProfileImageFields
+    //tags: TagsFields
+    //account: AccountField
+}
 
 export type FormSectionBaseProps = {
     control: Control<CustomerFormSchema>

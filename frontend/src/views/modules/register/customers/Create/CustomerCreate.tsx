@@ -52,9 +52,21 @@ const CustomerEdit = () => {
             <CustomerForm
                 newCustomer
                 defaultValues={{
-                    nome: '',
-                    cpfCnpj: '',
-                    email: '',
+                    overview: {
+                        nome: '',
+                        cpfCnpj: '',
+                        email: '',
+                    },
+                    address: {
+                        zipCode: '',
+                        street: '',
+                        number: '',
+                        neighborhood: '',
+                        city: '',
+                        state: '',
+                        country: '',
+                        complement: '',
+                    },
                 }}
                 onFormSubmit={handleFormSubmit}
             >
