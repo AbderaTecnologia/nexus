@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.Create
+namespace Nexus.Cadastro.Application.Models.Dtos
 {
     
     public sealed record ContactDto(
@@ -11,7 +11,8 @@ namespace Nexus.Cadastro.Application.Handlers.Clientes.Create
         string WhatsApp
     );
 
-    public sealed class ContactDtoValidation : AbstractValidator<ContactDto>
+    public sealed class ContactDtoValidation : 
+        AbstractValidator<ContactDto>
     {
         public ContactDtoValidation()
         {

@@ -7,8 +7,7 @@ public sealed record CreateClienteCommand(
     string Nome,
     string Email,
     string CpfCnpj,
-    string Telefone,
-    AddressDto Endereco
+    AddressDto Address
 ) : IRequest<IResult>;
 
 public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>
