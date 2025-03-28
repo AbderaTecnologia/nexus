@@ -58,6 +58,7 @@ const CustomerForm = (props: CustomerFormProps) => {
         reset,
         formState: { errors },
         control,
+        setValue
     } = useForm<CustomerFormSchema>({
         defaultValues: {
             ...defaultValues,
@@ -85,13 +86,14 @@ const CustomerForm = (props: CustomerFormProps) => {
             <Container>
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="gap-4 flex flex-col flex-auto">
-                        <OverviewSection control={control} errors={errors} />
-                        <AddressSection control={control} errors={errors} />
+                        <OverviewSection control={control} setValue={setValue} errors={errors} />
+                        <AddressSection control={control} setValue={setValue} errors={errors} />
                     </div>
                     <div className="md:w-[370px] gap-4 flex flex-col">
                         <ProfileImageSection
                             control={control}
                             errors={errors}
+                            setValue={setValue}
                         />
                         {/* <TagsSection control={control} errors={errors} />
                         {!newCustomer && (

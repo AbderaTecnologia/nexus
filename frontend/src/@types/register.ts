@@ -1,4 +1,4 @@
-import { AddressFields, OverviewFields } from "@/views/modules/register/customers/Form/types"
+import { AddressFields, OverviewFields } from "@/views/register/customers/Form/types"
 
 export type CustomersList = {
     result: Customer[]

@@ -5,13 +5,13 @@ const registerRoute: Routes = [
     {
         key: "register.customers.list",
         path: "/register/customers/list",
-        component: lazy(() => import("@/views/modules/register/customers/List/ListCustomers")),
+        component: lazy(() => import("@/views/register/customers/List/ListCustomers")),
         authority: [],
     },
     {
         key: "register.customers.create",
         path: "/register/customers/create",
-        component: lazy(() => import("@/views/modules/register/customers/Create/CustomerCreate")),
+        component: lazy(() => import("@/views/register/customers/Create/CustomerCreate")),
         authority: [],
         meta: {
             header: {

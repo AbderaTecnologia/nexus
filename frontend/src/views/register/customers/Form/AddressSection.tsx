@@ -2,16 +2,55 @@ import Card from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import { FormItem } from '@/components/ui/Form'
 import { Controller } from 'react-hook-form'
+import CepInput, { Address } from '@/components/shared/CepInput'
 import type { FormSectionBaseProps } from './types'
-import FormCustomFormatInput from '@/components/shared/CustomFormatInput'
 
 type AddressSectionProps = FormSectionBaseProps
 
-const AddressSection = ({ control, errors }: AddressSectionProps) => {
+const AddressSection = ({ control, setValue, errors }: AddressSectionProps) => {
+    const handleAddressUpdate = (address: Address) => {
+        const updates = {
+            'address.street': address.logradouro,
+            'address.neighborhood': address.bairro,
+            'address.city': address.cidade,
+            'address.state': address.uf
+        }
+
+        Object.entries(updates).forEach(([field, value]) => {
+            setValue(field as 'address.street', value, {
+                shouldValidate: true,
+                shouldDirty: true,
+                shouldTouch: true
+            })
+        })
+    }
+
     return (
         <Card>
             <h4 className="mb-6">Endereço</h4>
             <div className="grid md:grid-cols-2 gap-4">
+                <FormItem
+                    label="CEP"
+                    invalid={Boolean(errors.address?.zipCode)}
+                    errorMessage={errors.address?.zipCode?.message}
+                >
+                    <Controller
+                        name="address.zipCode"
+                        control={control}
+                        render={({ field }) => (
+                            <CepInput
+                                {...field}
+                                onChange={(cep, address) => {
+                                    field.onChange(cep)
+                                    if (address) {
+                                        handleAddressUpdate(address)
+                                    }
+                                }}
+                            />
+                        )}
+                    />
+                </FormItem>
+
                 <FormItem
                     label="Rua"
                     invalid={Boolean(errors.address?.street)}
@@ -80,31 +119,6 @@ const AddressSection = ({ control, errors }: AddressSectionProps) => {
                                 autoComplete="off"
                                 placeholder="Ex.: Apartamento 45"
                                 {...field}
-                            />
-                        )}
-                    />
-                </FormItem>
-                <FormItem
-                    label="CEP"
-                    invalid={Boolean(errors.address?.zipCode)}
-                    errorMessage={errors.address?.zipCode?.message}
-                >
-                    <Controller
-                        name="address.zipCode"
-                        control={control}
-                        render={({ field }) => (
-                            <FormCustomFormatInput
-                                type="text"
-                                autoComplete="off"
-                                placeholder="Ex.: 12345-678"
-                                {...field}
-                                format={(value: string) => {
-                                    return value
-                                        .replace(/\D/g, '')
-                                        .replace(/(\d{5})(\d)/, '$1-$2')
-                                }}
-                                removeFormatting={(value: string) => value.replace(/\D/g, '')} // Remove a máscara
-                                onValueChange={(values) => field.onChange(values.value)} // Atualiza o valor bruto no estado
                             />
                         )}
                     />
