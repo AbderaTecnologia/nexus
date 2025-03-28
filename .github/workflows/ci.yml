@@ -1,0 +1,52 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+
+jobs:
+  backend:
+    if: contains(github.event.pull_request.changed_files, 'backend/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0' # Configura o .NET 9
+
+      - name: Restore dependencies
+        run: |
+          cd backend
+          dotnet restore
+
+      - name: Build project
+        run: |
+          cd backend
+          dotnet build --configuration Release --no-restore
+
+  frontend:
+    if: contains(github.event.pull_request.changed_files, 'frontend/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Escolha a versão do Node.js usada no frontend
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run build
+        run: |
+          cd frontend
+          npm run build
