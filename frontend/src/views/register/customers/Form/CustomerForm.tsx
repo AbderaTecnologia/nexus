@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Form } from '@/components/ui/Form'
 import Container from '@/components/shared/Container'
 import BottomStickyBar from '@/components/template/BottomStickyBar'
+import Steps from '@/components/ui/Steps'
+import { Button } from '@/components/ui'
 import OverviewSection from './OverviewSection'
-// import AddressSection from './AddressSection'
-// import TagsSection from './TagsSection'
+import AddressSection from './AddressSection'
 import ProfileImageSection from './ProfileImageSection'
 // import AccountSection from './AccountSection'
 import isEmpty from 'lodash/isEmpty'
@@ -14,7 +15,6 @@ import { z } from 'zod'
 import type { ZodType } from 'zod'
 import type { CommonProps } from '@/@types/common'
 import type { CustomerFormSchema } from './types'
-import AddressSection from './AddressSection'
 
 type CustomerFormProps = {
     onFormSubmit: (values: CustomerFormSchema) => void
@@ -42,7 +42,8 @@ const validationSchema: ZodType<CustomerFormSchema> = z.object({
         state: z.string().min(1, { message: 'Estado obrigatório' }),
         country: z.string().min(1, { message: 'País obrigatório' }),
         complement: z.string(),
-    })
+    }),
+    img: z.string().optional()
 })
 
 const CustomerForm = (props: CustomerFormProps) => {
@@ -53,12 +54,15 @@ const CustomerForm = (props: CustomerFormProps) => {
         children,
     } = props
 
+    const [currentStep, setCurrentStep] = useState(0)
+
     const {
         handleSubmit,
         reset,
         formState: { errors },
         control,
-        setValue
+        setValue,
+        trigger
     } = useForm<CustomerFormSchema>({
         defaultValues: {
             ...defaultValues,
@@ -70,11 +74,16 @@ const CustomerForm = (props: CustomerFormProps) => {
         if (!isEmpty(defaultValues)) {
             reset(defaultValues)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(defaultValues)])
 
+    const handleNextStep = async () => {
+            setCurrentStep(1)
+    }
+
     const onSubmit = (values: CustomerFormSchema) => {
-        onFormSubmit?.(values)
+        if (currentStep === 1) {
+            onFormSubmit?.(values)
+        }
     }
 
     return (
@@ -84,25 +93,39 @@ const CustomerForm = (props: CustomerFormProps) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <Container>
-                <div className="flex flex-col md:flex-row gap-4">
-                    <div className="gap-4 flex flex-col flex-auto">
-                        <OverviewSection control={control} setValue={setValue} errors={errors} />
-                        <AddressSection control={control} setValue={setValue} errors={errors} />
+                <div className="mb-8">
+                    <Steps current={currentStep}>
+                        <Steps.Item title="Basic Info & Address" />
+                        <Steps.Item title="Profile Image" />
+                    </Steps>
+                </div>
+                
+                {currentStep === 0 ? (
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="gap-4 flex flex-col flex-auto">
+                            <OverviewSection control={control} setValue={setValue} errors={errors} />
+                            <AddressSection control={control} setValue={setValue} errors={errors} />
+                        </div>
                     </div>
-                    <div className="md:w-[370px] gap-4 flex flex-col">
+                ) : (
+                    <div className="md:w-[370px] mx-auto">
                         <ProfileImageSection
                             control={control}
                             errors={errors}
                             setValue={setValue}
                         />
-                        {/* <TagsSection control={control} errors={errors} />
-                        {!newCustomer && (
-                            <AccountSection control={control} errors={errors} />
-                        )} */}
                     </div>
-                </div>
+                )}
             </Container>
-            <BottomStickyBar>{children}</BottomStickyBar>
+            <BottomStickyBar>
+                {currentStep === 0 ? (
+                    <Button type='button' variant="solid" onClick={handleNextStep}>
+                        Next Step
+                    </Button>
+                ) : (
+                    children
+                )}
+            </BottomStickyBar>
         </Form>
     )
 }
