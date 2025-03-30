@@ -33,7 +33,7 @@ export type AccountField = {
 export type CustomerFormSchema = {
     overview: OverviewFields
     address: AddressFields
-    //profileImage: ProfileImageFields
+    profileImage: ProfileImageFields
     //tags: TagsFields
     //account: AccountField
 }

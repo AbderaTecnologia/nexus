@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Form } from '@/components/ui/Form'
 import Container from '@/components/shared/Container'
 import BottomStickyBar from '@/components/template/BottomStickyBar'
-import Steps from '@/components/ui/Steps'
+// Remove Steps import
 import { Button } from '@/components/ui'
 import OverviewSection from './OverviewSection'
 import AddressSection from './AddressSection'
@@ -43,7 +43,9 @@ const validationSchema: ZodType<CustomerFormSchema> = z.object({
         country: z.string().min(1, { message: 'País obrigatório' }),
         complement: z.string(),
     }),
-    img: z.string().optional()
+    profileImage: z.object({
+        img: z.string()
+    }) 
 })
 
 const CustomerForm = (props: CustomerFormProps) => {
@@ -53,8 +55,6 @@ const CustomerForm = (props: CustomerFormProps) => {
         newCustomer = false,
         children,
     } = props
-
-    const [currentStep, setCurrentStep] = useState(0)
 
     const {
         handleSubmit,
@@ -76,14 +76,8 @@ const CustomerForm = (props: CustomerFormProps) => {
         }
     }, [JSON.stringify(defaultValues)])
 
-    const handleNextStep = async () => {
-            setCurrentStep(1)
-    }
-
     const onSubmit = (values: CustomerFormSchema) => {
-        if (currentStep === 1) {
-            onFormSubmit?.(values)
-        }
+        onFormSubmit?.(values)
     }
 
     return (
@@ -93,38 +87,22 @@ const CustomerForm = (props: CustomerFormProps) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <Container>
-                <div className="mb-8">
-                    <Steps current={currentStep}>
-                        <Steps.Item title="Basic Info & Address" />
-                        <Steps.Item title="Profile Image" />
-                    </Steps>
-                </div>
-                
-                {currentStep === 0 ? (
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <div className="gap-4 flex flex-col flex-auto">
-                            <OverviewSection control={control} setValue={setValue} errors={errors} />
-                            <AddressSection control={control} setValue={setValue} errors={errors} />
-                        </div>
+                <div className="flex flex-col md:flex-row gap-4">
+                    <div className="gap-4 flex flex-col flex-auto">
+                        <OverviewSection control={control} setValue={setValue} errors={errors} />
+                        <AddressSection control={control} setValue={setValue} errors={errors} />
                     </div>
-                ) : (
-                    <div className="md:w-[370px] mx-auto">
+                    <div className="md:w-[370px]">
                         <ProfileImageSection
                             control={control}
                             errors={errors}
                             setValue={setValue}
                         />
                     </div>
-                )}
+                </div>
             </Container>
             <BottomStickyBar>
-                {currentStep === 0 ? (
-                    <Button type='button' variant="solid" onClick={handleNextStep}>
-                        Next Step
-                    </Button>
-                ) : (
-                    children
-                )}
+                {children}
             </BottomStickyBar>
         </Form>
     )

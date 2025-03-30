@@ -67,6 +67,9 @@ const CustomerEdit = () => {
                         country: '',
                         complement: '',
                     },
+                    profileImage: {
+                        img: '',
+                    },
                 }}
                 onFormSubmit={handleFormSubmit}
             >
