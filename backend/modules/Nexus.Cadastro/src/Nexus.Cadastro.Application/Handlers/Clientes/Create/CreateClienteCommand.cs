@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.Validators;
 using Nexus.Cadastro.Application.Models.Dtos;
 
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
@@ -7,6 +8,7 @@ public sealed record CreateClienteCommand(
     string Nome,
     string Email,
     string CpfCnpj,
+    IEnumerable<ContactDto> Contacts,
     AddressDto Address
 ) : IRequest<IResult>;
 
@@ -25,6 +27,12 @@ public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClie
         RuleFor(x => x.CpfCnpj)
             .NotEmpty().WithMessage("O CPF/CNPJ é obrigatório.")
             .Must(BeAValidCpfOrCnpj).WithMessage("O CPF/CNPJ deve ser válido.");
+        
+        RuleFor(x => x.Address)
+            .SetValidator(new AddressDtoValidation());
+
+        RuleForEach(x => x.Contacts)
+            .SetValidator(new ContactDtoValidation());
     }
 
     private bool BeAValidCpfOrCnpj(string cpfCnpj)

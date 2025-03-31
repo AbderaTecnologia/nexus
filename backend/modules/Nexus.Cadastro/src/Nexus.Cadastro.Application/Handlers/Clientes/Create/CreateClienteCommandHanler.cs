@@ -39,7 +39,6 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
                 country: request.Address.Country,
                 zipcode: request.Address.ZipCode
             )
-            
         };
 
         cadastroDbContext.Clientes.Add(cliente);

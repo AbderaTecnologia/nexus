@@ -2,7 +2,6 @@ using FluentValidation;
 
 namespace Nexus.Cadastro.Application.Models.Dtos
 {
-    
     public sealed record ContactDto(
         string Type,
         string Name,
@@ -10,9 +9,7 @@ namespace Nexus.Cadastro.Application.Models.Dtos
         string Phone,
         string WhatsApp
     );
-
-    public sealed class ContactDtoValidation : 
-        AbstractValidator<ContactDto>
+    public sealed class ContactDtoValidation : AbstractValidator<ContactDto>
     {
         public ContactDtoValidation()
         {

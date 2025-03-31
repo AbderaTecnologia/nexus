@@ -13,7 +13,7 @@ namespace Nexus.Cadastro.Domain.Entities
             string state,
             string country,
             string zipcode
-            )
+        )
         {
             Street = street;
             Number = number;
@@ -23,8 +23,8 @@ namespace Nexus.Cadastro.Domain.Entities
             State = state;
             Country = country;
             ZipCode = zipcode;
-
         }
+        
         public string Street { get; init; } = string.Empty;
         public string Number { get; init; } = string.Empty;
         public string Complement { get; init; } = string.Empty;
