@@ -4,7 +4,6 @@ using Nexus.Cadastro.Infra.Persistence;
 
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
 
-
 public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateClienteCommand, IResult>
 {
     public async Task<IResult> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
@@ -29,7 +28,17 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
         {
             Name = request.Nome,
             Email = request.Email,
-            Identifier = request.CpfCnpj
+            Identifier = request.CpfCnpj,
+            Address = new Address(
+                street: request.Address.Street,
+                number: request.Address.Number,
+                complement: request.Address.Complement,
+                neighborhood: request.Address.Neighborhood,
+                city: request.Address.City,
+                state: request.Address.State,
+                country: request.Address.Country,
+                zipcode: request.Address.ZipCode
+            )
         };
 
         cadastroDbContext.Clientes.Add(cliente);
