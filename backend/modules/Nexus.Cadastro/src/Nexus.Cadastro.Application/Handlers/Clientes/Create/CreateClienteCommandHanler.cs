@@ -26,9 +26,9 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
 
         var cliente = new Cliente
         {
-            Name = request.Nome,
+            Name = request.Name,
             Email = request.Email,
-            Identifier = request.CpfCnpj,
+            Identifier = request.Identifier,
             Address = new Address(
                 street: request.Address.Street,
                 number: request.Address.Number,
