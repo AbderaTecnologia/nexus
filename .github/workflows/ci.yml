@@ -5,28 +5,32 @@ on:
     paths:
       - 'backend/**'
       - 'frontend/**'
+  workflow_dispatch:
 
 jobs:
   backend:
-    if: contains(github.event.pull_request.changed_files, 'backend/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        
+      - name: Get changed files
+        id: get_changed
+        uses: actions/github-script@v6
         with:
-          dotnet-version: '9.0' # Configura o .NET 9
-
-      - name: Restore dependencies
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            return files.data.map(f => f.filename);
+            
+      - name: Run backend steps
+        if: contains(steps.get_changed.outputs.result, 'backend/')
         run: |
           cd backend
           dotnet restore
-
-      - name: Build project
-        run: |
-          cd backend
           dotnet build --configuration Release --no-restore
 
   frontend:
@@ -35,17 +39,29 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
+      - name: Get changed files
+        id: get_changed
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            return files.data.map(f => f.filename);
+            
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Escolha a versão do Node.js usada no frontend
-
+          node-version: '16'
+          
       - name: Install dependencies
         run: |
           cd frontend
           npm install
-
+          
       - name: Run build
         run: |
           cd frontend
