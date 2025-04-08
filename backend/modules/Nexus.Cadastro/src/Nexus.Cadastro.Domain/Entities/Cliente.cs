@@ -10,4 +10,6 @@ public class Cliente : Company, ICustomerCompany
     public string Identifier { get; init; } = string.Empty; // CPF or CNPJ
     public Guid AddressId { get; set; }
     public Address Address { get; set; }
+    public OverviewDto OverviewDto { get; set; }
+    public ProfileImageDto ProfileImageDto { get; set; }
 }

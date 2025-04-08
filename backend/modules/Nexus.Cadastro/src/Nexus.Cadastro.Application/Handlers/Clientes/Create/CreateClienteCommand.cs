@@ -8,7 +8,9 @@ public sealed record CreateClienteCommand(
     string Email,
     string Identifier,
     IEnumerable<ContactDto> Contacts,
-    AddressDto Address
+    AddressDto Address,
+    OverviewDto Overview,
+    ProfileImageDto ProfileImage
 ) : IRequest<IResult>;
 
 public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>
