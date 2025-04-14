@@ -4,8 +4,8 @@ namespace Nexus.Cadastro.Application.Models.Dtos;
 
 public sealed record OverviewDto(
     string Name,
-    string Identifier,
-    string Email
+    string Email,
+    string Identifier
 );
 
 public sealed class OverviewDtoValidation : AbstractValidator<OverviewDto>

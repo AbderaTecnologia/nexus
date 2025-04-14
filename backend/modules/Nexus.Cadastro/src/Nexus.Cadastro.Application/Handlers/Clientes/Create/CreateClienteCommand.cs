@@ -4,9 +4,6 @@ using Nexus.Cadastro.Application.Models.Dtos;
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
 
 public sealed record CreateClienteCommand(
-    string Name,
-    string Email,
-    string Identifier,
     IEnumerable<ContactDto> Contacts,
     AddressDto Address,
     OverviewDto Overview,
