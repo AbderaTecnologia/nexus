@@ -6,14 +6,14 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
 {
     public DbSet<Company> Companies { get; set; }
     public DbSet<Contabilidade> Contabilidades { get; set; }
-    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<CompanyTenent> Clientes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>()
             .HasDiscriminator<string>("CompanyType")
             .HasValue<Contabilidade>("Accounting")
-            .HasValue<Cliente>("Customer");
+            .HasValue<CompanyTenent>("Customer");
 
         modelBuilder.Entity<Company>()
             .Property(c => c.Id)

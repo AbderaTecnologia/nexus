@@ -24,7 +24,7 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
             return BadRequest(problemDetails);
         }
 
-        var cliente = new Cliente
+        var cliente = new CompanyTenent
         {
             Name = request.Overview.Name,
             Email = request.Overview.Email,

@@ -4,5 +4,5 @@ namespace Nexus.Cadastro.Domain.Entities;
 
 public class Contabilidade : Company
 {
-    public ICollection<Cliente> Clientes { get; set; } = [];
+    public ICollection<CompanyTenent> Clientes { get; set; } = [];
 }
