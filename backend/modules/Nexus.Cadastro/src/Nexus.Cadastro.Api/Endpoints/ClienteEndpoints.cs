@@ -9,11 +9,11 @@ namespace Nexus.Cadastro.Api.Endpoints;
 public static class ClienteEndpoints
 {
     public static IEndpointRouteBuilder MapCadastroClientEndpoints(this IEndpointRouteBuilder builder) =>
-        builder.MapGroup("Cadastro Cliente", "/api/cadastro", group =>
+        builder.MapGroup("Cadastro Cliente", "/api/register", group =>
         {
             group.RequireAuthorization();
 
-            group.MapPost("/cliente", async (CreateClienteCommand createClienteCommand, IMediator mediator) =>
+            group.MapPost("/customer", async (CreateClienteCommand createClienteCommand, IMediator mediator) =>
                 await mediator.Send(createClienteCommand))
                 .WithDescription("Criação de cliente")
                 .ProducesResponse(Created)
