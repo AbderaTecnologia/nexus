@@ -1,37 +1,26 @@
 using Nexus.Core.Domain.Entities.Base;
 
-namespace Nexus.Cadastro.Domain.Entities
+namespace Nexus.Cadastro.Domain.Entities;
+
+public sealed class Address(AddressDetails details) : EntityCompanyBase
 {
-    public sealed class Address : EntityCompanyBase
-    {
-        public Address(
-            string street,
-            string number,
-            string complement,
-            string neighborhood,
-            string city,
-            string state,
-            string country,
-            string zipcode
-        )
-        {
-            Street = street;
-            Number = number;
-            Complement = complement;
-            Neighborhood = neighborhood;
-            City = city;
-            State = state;
-            Country = country;
-            ZipCode = zipcode;
-        }
-        
-        public string Street { get; init; } = string.Empty;
-        public string Number { get; init; } = string.Empty;
-        public string Complement { get; init; } = string.Empty;
-        public string Neighborhood { get; init; } = string.Empty;
-        public string City { get; init; } = string.Empty;
-        public string State { get; init; } = string.Empty;
-        public string Country { get; init; } = string.Empty;
-        public string ZipCode { get; init; } = string.Empty;
-    }
+    public string Street { get; init; } = details.Street;
+    public string Number { get; init; } = details.Number;
+    public string Complement { get; init; } = details.Complement;
+    public string Neighborhood { get; init; } = details.Neighborhood;
+    public string City { get; init; } = details.City;
+    public string State { get; init; } = details.State;
+    public string Country { get; init; } = details.Country;
+    public string ZipCode { get; init; } = details.ZipCode;
 }
+
+public record AddressDetails(
+    string Street,
+    string Number,
+    string Complement,
+    string Neighborhood,
+    string City,
+    string State,
+    string Country,
+    string ZipCode
+);

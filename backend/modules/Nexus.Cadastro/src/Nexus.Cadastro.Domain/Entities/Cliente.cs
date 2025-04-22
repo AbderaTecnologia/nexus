@@ -3,7 +3,7 @@ using Nexus.Core.Domain.Entities.Interfaces;
 
 namespace Nexus.Cadastro.Domain.Entities;
 
-public class Cliente : Company, ICustomerCompany
+public sealed class Cliente : Company, ICustomerCompany
 {
     public Guid ContabilidadeId { get; set; }
     public Contabilidade Contabilidade { get; set; } = null!;
