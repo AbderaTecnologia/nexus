@@ -5,15 +5,15 @@ namespace Nexus.Cadastro.Infra.Persistence;
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
 {
     public DbSet<Company> Companies { get; set; }
-    public DbSet<Contabilidade> Contabilidades { get; set; }
-    public DbSet<CompanyTenent> Clientes { get; set; }
+    public DbSet<AccountingTenant> Contabilidades { get; set; }
+    public DbSet<CompanyTenant> Clientes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>()
             .HasDiscriminator<string>("CompanyType")
-            .HasValue<Contabilidade>("Accounting")
-            .HasValue<CompanyTenent>("Customer");
+            .HasValue<AccountingTenant>("Accounting")
+            .HasValue<CompanyTenant>("CompanyTenant");
 
         modelBuilder.Entity<Company>()
             .Property(c => c.Id)
