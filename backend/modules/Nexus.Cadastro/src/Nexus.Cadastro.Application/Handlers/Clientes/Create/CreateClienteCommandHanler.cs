@@ -31,20 +31,22 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
             Identifier = request.Overview.Identifier,
             AvatarUrl = request.Overview.AvatarUrl,
             Address = new Address(
-                street: request.Address.Street,
-                number: request.Address.Number,
-                complement: request.Address.Complement,
-                neighborhood: request.Address.Neighborhood,
-                city: request.Address.City,
-                state: request.Address.State,
-                country: request.Address.Country,
-                zipcode: request.Address.ZipCode
+                new AddressDetails(
+                    request.Address.Street,
+                    request.Address.Number,
+                    request.Address.Complement,
+                    request.Address.Neighborhood,
+                    request.Address.City,
+                    request.Address.State,
+                    request.Address.Country,
+                    request.Address.ZipCode
+                )
             )
         };
 
         cadastroDbContext.Clientes.Add(cliente);
         await cadastroDbContext.SaveChangesAsync(cancellationToken);
 
-        return Created($"/api/cadastro/cliente/{cliente.Id}", cliente.Id);
+        return Created($"/api/register/tenant/{cliente.ContabilidadeId}/customer/{cliente.Id}", cliente.Id);
     }
 }

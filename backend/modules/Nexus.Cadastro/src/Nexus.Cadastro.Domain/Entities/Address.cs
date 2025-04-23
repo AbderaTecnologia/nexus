@@ -4,6 +4,19 @@ namespace Nexus.Cadastro.Domain.Entities;
 
 public sealed class Address(AddressDetails details) : EntityCompanyBase
 {
+    public Address() : this(new AddressDetails(
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty
+    ))
+    {
+    }
+
     public string Street { get; init; } = details.Street;
     public string Number { get; init; } = details.Number;
     public string Complement { get; init; } = details.Complement;
