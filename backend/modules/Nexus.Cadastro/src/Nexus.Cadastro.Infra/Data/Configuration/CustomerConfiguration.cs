@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Nexus.Cadastro.Infra.Data.Configuration
 {
-    public class CustomerConfiguration : IEntityTypeConfiguration<Cliente>
+    public class CustomerConfiguration : IEntityTypeConfiguration<CompanyTenant>
     {
-        public void Configure(EntityTypeBuilder<Cliente> builder)
+        public void Configure(EntityTypeBuilder<CompanyTenant> builder)
         {
             builder
                 .HasOne(c => c.Contabilidade)

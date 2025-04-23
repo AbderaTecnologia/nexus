@@ -8,7 +8,7 @@ public class CreateContadorCommandHandler(CadastroDbContext _context, IAuthServi
 {
     public async Task<IResult> Handle(CreateContadorCommand request, CancellationToken cancellationToken)
     {
-        var contabilidade = new Contabilidade
+        var contabilidade = new AccountingTenant
         {
             Name = request.CompanyName,
             Email = request.Email,
