@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Form } from '@/components/ui/Form'
 import Container from '@/components/shared/Container'
 import BottomStickyBar from '@/components/template/BottomStickyBar'
+// Remove Steps import
+import { Button } from '@/components/ui'
 import OverviewSection from './OverviewSection'
-// import AddressSection from './AddressSection'
-// import TagsSection from './TagsSection'
+import AddressSection from './AddressSection'
 import ProfileImageSection from './ProfileImageSection'
 // import AccountSection from './AccountSection'
 import isEmpty from 'lodash/isEmpty'
@@ -22,14 +23,29 @@ type CustomerFormProps = {
 } & CommonProps
 
 const validationSchema: ZodType<CustomerFormSchema> = z.object({
-    nome: z.string().min(1, { message: 'Nome ou Razão Social obrigatório' }),
-    email: z
-        .string()
-        .min(1, { message: 'Email obrigatório' })
-        .email({ message: 'Email inválido' }),
-    cpfCnpj: z.string()
-        .min(11, {message: 'Cpf ou Cnpj obrigatório'})
-        .max(14, {message: 'Documento inválido'}),
+    overview: z.object({
+        nome: z.string().min(1, { message: 'Nome ou Razão Social obrigatório' }),
+        email: z
+            .string()
+            .min(1, { message: 'Email obrigatório' })
+            .email({ message: 'Email inválido' }),
+        cpfCnpj: z.string()
+            .min(11, { message: 'Cpf ou Cnpj obrigatório' })
+            .max(14, { message: 'Documento inválido' }),
+    }),
+    address: z.object({
+        zipCode: z.string().min(1, { message: 'CEP obrigatório' }),
+        street: z.string().min(1, { message: 'Rua obrigatória' }),
+        number: z.string().min(1, { message: 'Número obrigatório' }),
+        neighborhood: z.string().min(1, { message: 'Bairro obrigatório' }),
+        city: z.string().min(1, { message: 'Cidade obrigatória' }),
+        state: z.string().min(1, { message: 'Estado obrigatório' }),
+        country: z.string().min(1, { message: 'País obrigatório' }),
+        complement: z.string(),
+    }),
+    profileImage: z.object({
+        img: z.string()
+    }) 
 })
 
 const CustomerForm = (props: CustomerFormProps) => {
@@ -45,6 +61,8 @@ const CustomerForm = (props: CustomerFormProps) => {
         reset,
         formState: { errors },
         control,
+        setValue,
+        trigger
     } = useForm<CustomerFormSchema>({
         defaultValues: {
             ...defaultValues,
@@ -56,7 +74,6 @@ const CustomerForm = (props: CustomerFormProps) => {
         if (!isEmpty(defaultValues)) {
             reset(defaultValues)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(defaultValues)])
 
     const onSubmit = (values: CustomerFormSchema) => {
@@ -72,22 +89,21 @@ const CustomerForm = (props: CustomerFormProps) => {
             <Container>
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="gap-4 flex flex-col flex-auto">
-                        <OverviewSection control={control} errors={errors} />
-                        {/* <AddressSection control={control} errors={errors} /> */}
+                        <OverviewSection control={control} setValue={setValue} errors={errors} />
+                        <AddressSection control={control} setValue={setValue} errors={errors} />
                     </div>
-                    <div className="md:w-[370px] gap-4 flex flex-col">
+                    <div className="md:w-[370px]">
                         <ProfileImageSection
                             control={control}
                             errors={errors}
+                            setValue={setValue}
                         />
-                        {/* <TagsSection control={control} errors={errors} />
-                        {!newCustomer && (
-                            <AccountSection control={control} errors={errors} />
-                        )} */}
                     </div>
                 </div>
             </Container>
-            <BottomStickyBar>{children}</BottomStickyBar>
+            <BottomStickyBar>
+                {children}
+            </BottomStickyBar>
         </Form>
     )
 }
