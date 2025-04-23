@@ -6,22 +6,22 @@ using Nexus.Core.Api.Extensions;
 
 namespace Nexus.Cadastro.Api.Endpoints;
 
-public static class ClienteEndpoints
+public static class TenantEndpoints
 {
     public static IEndpointRouteBuilder MapCadastroClientEndpoints(this IEndpointRouteBuilder builder) =>
-        builder.MapGroup("Cadastro Cliente", "/api/register", group =>
+        builder.MapGroup("Gerenciar tenants", "/api/register/tenants", group =>
         {
             group.RequireAuthorization();
 
-            group.MapPost("/customer", async (CreateClienteCommand createClienteCommand, IMediator mediator) =>
+            group.MapPost("/create", async (CreateClienteCommand createClienteCommand, IMediator mediator) =>
                 await mediator.Send(createClienteCommand))
-                .WithDescription("Criação de cliente")
+                .WithDescription("Criação de tenants")
                 .ProducesResponse(Created)
                 .ProducesResponse(BadRequest);
 
-            group.MapGet("/cliente/list", async (IMediator mediator) =>
+            group.MapGet("/", async (IMediator mediator) =>
                 await mediator.Send(new ListClienteQuery()))
-                .WithDescription("Consulta de clientes")
+                .WithDescription("Consulta de tenants")
                 .ProducesResponse<IEnumerable<ClienteViewModel>>(OK)
                 .ProducesResponse(BadRequest);
         });
