@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
+using Nexus.Core.Domain.Entities;
 
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
 
