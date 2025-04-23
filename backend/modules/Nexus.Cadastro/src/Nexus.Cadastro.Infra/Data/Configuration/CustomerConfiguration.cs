@@ -1,20 +1,20 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Nexus.Cadastro.Infra.Data.Configuration;
-
-public class CustomerConfiguration : IEntityTypeConfiguration<Cliente>
+namespace Nexus.Cadastro.Infra.Data.Configuration
 {
-    public void Configure(EntityTypeBuilder<Cliente> builder)
+    public class CustomerConfiguration : IEntityTypeConfiguration<CompanyTenant>
     {
-        builder
-            .HasOne(c => c.Contabilidade)
-            .WithMany(c => c.Clientes)
-            .HasForeignKey(c => c.ContabilidadeId)
-            .OnDelete(DeleteBehavior.Restrict);
+        public void Configure(EntityTypeBuilder<CompanyTenant> builder)
+        {
+            builder
+                .HasOne(c => c.Contabilidade)
+                .WithMany(c => c.Clientes)
+                .HasForeignKey(c => c.ContabilidadeId);
 
-        builder
-            .Property(c => c.Identifier)
-            .HasMaxLength(14)
-            .IsRequired();
+            builder
+                .Property(c => c.Identifier)
+                .HasMaxLength(14)
+                .IsRequired();
+        }
     }
 }

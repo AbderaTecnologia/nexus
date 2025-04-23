@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
+using Nexus.Core.Domain.Entities;
 
 namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
 
@@ -24,7 +25,7 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
             return BadRequest(problemDetails);
         }
 
-        var cliente = new Cliente
+        var cliente = new CompanyTenant
         {
             Name = request.Overview.Name,
             Email = request.Overview.Email,

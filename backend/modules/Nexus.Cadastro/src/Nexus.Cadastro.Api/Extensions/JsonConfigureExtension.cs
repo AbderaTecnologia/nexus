@@ -15,5 +15,5 @@ public static class JsonConfigureExtension
 }
 
 [JsonSerializable(typeof(CreateContadorCommand))]
-[JsonSerializable(typeof(Contabilidade))]
+[JsonSerializable(typeof(AccountingTenant))]
 public partial class CadastroJsonContext : JsonSerializerContext;
