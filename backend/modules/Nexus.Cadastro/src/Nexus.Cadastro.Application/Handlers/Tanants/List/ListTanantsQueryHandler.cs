@@ -2,18 +2,18 @@ using System.Data.Entity;
 using Nexus.Cadastro.Application.Models;
 using Nexus.Cadastro.Infra.Persistence;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.List;
+namespace Nexus.Cadastro.Application.Handlers.Tanants.List;
 
-public sealed record ListClienteQuery : IRequest<IResult>;
+public sealed record ListTanantsQuery : IRequest<IResult>;
 
-public class ListClienteQueryHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<ListClienteQuery, IResult>
+public class ListTanantsQueryHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<ListTanantsQuery, IResult>
 {
-    public Task<IResult> Handle(ListClienteQuery request, CancellationToken cancellationToken)
+    public Task<IResult> Handle(ListTanantsQuery request, CancellationToken cancellationToken)
     {
         var clientes = cadastroDbContext.Clientes
         .AsNoTracking()
         .Select(
-            c => new ClienteViewModel
+            c => new TanantViewModel
             {
                 Id = c.Id,
                 Name = c.Name,

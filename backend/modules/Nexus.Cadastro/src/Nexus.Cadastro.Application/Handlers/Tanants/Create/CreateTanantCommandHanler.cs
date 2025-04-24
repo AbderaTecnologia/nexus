@@ -3,11 +3,11 @@ using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
 using Nexus.Core.Domain.Entities;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
+namespace Nexus.Cadastro.Application.Handlers.Tanants.Create;
 
-public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateClienteCommand, IResult>
+public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateTanantCommand, IResult>
 {
-    public async Task<IResult> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
+    public async Task<IResult> Handle(CreateTanantCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateClienteCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);

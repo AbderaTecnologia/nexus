@@ -1,16 +1,16 @@
 using FluentValidation;
 using Nexus.Cadastro.Application.Models.Dtos;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
+namespace Nexus.Cadastro.Application.Handlers.Tanants.Create;
 
-public sealed record CreateClienteCommand(
+public sealed record CreateTanantCommand(
     IEnumerable<ContactDto> Contacts,
     AddressDto Address,
     OverviewDto Overview,
     ProfileImageDto ProfileImage
 ) : IRequest<IResult>;
 
-public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>
+public sealed class CreateClienteCommandValidator : AbstractValidator<CreateTanantCommand>
 {
     public CreateClienteCommandValidator()
     {

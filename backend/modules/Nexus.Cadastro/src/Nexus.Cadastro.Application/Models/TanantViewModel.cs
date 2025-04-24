@@ -1,6 +1,6 @@
 namespace Nexus.Cadastro.Application.Models;
 
-public sealed class ClienteViewModel
+public sealed record TanantViewModel
 {
     public Guid Id { get; init; }
     public string Type { get; init; } = string.Empty;
