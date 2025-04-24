@@ -5,11 +5,11 @@ using Nexus.Core.Domain.Entities;
 
 namespace Nexus.Cadastro.Application.Handlers.Tanants.Create;
 
-public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateTanantCommand, IResult>
+public sealed class CreateTanantCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateTanantCommand, IResult>
 {
     public async Task<IResult> Handle(CreateTanantCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateClienteCommandValidator();
+        var validator = new CreateTanantCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
@@ -19,7 +19,7 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
                 Title = "Validation Failed",
                 Status = StatusCodes.Status400BadRequest,
                 Detail = "One or more validation errors occured!",
-                Instance = "/clientes/create",
+                Instance = "/tanants/create",
                 Errors = validationResult.ToDictionary()
             };
             return BadRequest(problemDetails);

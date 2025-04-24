@@ -10,9 +10,9 @@ public sealed record CreateTanantCommand(
     ProfileImageDto ProfileImage
 ) : IRequest<IResult>;
 
-public sealed class CreateClienteCommandValidator : AbstractValidator<CreateTanantCommand>
+public sealed class CreateTanantCommandValidator : AbstractValidator<CreateTanantCommand>
 {
-    public CreateClienteCommandValidator()
+    public CreateTanantCommandValidator()
     {
         RuleFor(x => x.Address)
             .SetValidator(new AddressDtoValidation());
