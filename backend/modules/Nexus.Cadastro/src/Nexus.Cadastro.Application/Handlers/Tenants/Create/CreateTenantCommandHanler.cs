@@ -3,13 +3,13 @@ using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
 using Nexus.Core.Domain.Entities;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
+namespace Nexus.Cadastro.Application.Handlers.Tenants.Create;
 
-public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateClienteCommand, IResult>
+public sealed class CreateTenantCommandHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<CreateTenantCommand, IResult>
 {
-    public async Task<IResult> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
+    public async Task<IResult> Handle(CreateTenantCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateClienteCommandValidator();
+        var validator = new CreateTenantCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
@@ -19,13 +19,13 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
                 Title = "Validation Failed",
                 Status = StatusCodes.Status400BadRequest,
                 Detail = "One or more validation errors occured!",
-                Instance = "/clientes/create",
+                Instance = "/tenants/create",
                 Errors = validationResult.ToDictionary()
             };
             return BadRequest(problemDetails);
         }
 
-        var cliente = new CompanyTenant
+        var tenant = new CompanyTenant
         {
             Name = request.Overview.Name,
             Email = request.Overview.Email,
@@ -43,9 +43,9 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
             )
         };
 
-        cadastroDbContext.Clientes.Add(cliente);
+        cadastroDbContext.Clientes.Add(tenant);
         await cadastroDbContext.SaveChangesAsync(cancellationToken);
 
-        return Created($"/api/cadastro/cliente/{cliente.Id}", cliente.Id);
+        return Created($"/api/cadastro/tenant/{tenant.Id}", tenant.Id);
     }
 }
