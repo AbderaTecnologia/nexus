@@ -6,3 +6,5 @@ global using Nexus.Cadastro.Domain.Entities;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Nexus.Cadastro.Infra.Persistence;
+global using Nexus.Cadastro.Domain.Modules.Finance;
+global using Nexus.Cadastro.Domain.Modules.Inventory;

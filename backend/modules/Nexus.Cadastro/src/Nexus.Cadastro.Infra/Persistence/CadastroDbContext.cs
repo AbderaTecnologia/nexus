@@ -1,7 +1,3 @@
-using Nexus.Cadastro.Domain.Modules.Finance;
-using Nexus.Cadastro.Infra.Data.Configuration;
-using Nexus.Cadastro.Infra.Data.Configuration.Financial;
-
 namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
@@ -16,6 +12,13 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
     public DbSet<FinancialTransactionType> FinancialTransactionTypes { get; set; }
     public DbSet<FinancialTransactionCategory> FinancialTransactionCategories { get; set; }
     public DbSet<FinancialTransactionSubCategory> FinancialTransactionSubCategories { get; set; }
+    #endregion
+
+    #region [Modules] - [Inventory]
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Warehouse> Warehouses { get; set; }
+
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,8 +51,7 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
         modelBuilder.Entity<Company>()
             .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(FinancialTransactionTypeConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
