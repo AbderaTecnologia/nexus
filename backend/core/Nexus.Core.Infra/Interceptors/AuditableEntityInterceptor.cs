@@ -9,7 +9,22 @@ namespace Nexus.Core.Infra.Interceptors;
 
 public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor) : SaveChangesInterceptor
 {
-    public Guid CompanyId => AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User).CompanyId;
+    public AuditableEntityInterceptor() : this(null!)
+    {
+    }
+
+    public Guid CompanyId
+    {
+        get
+        {
+            if (httpContextAccessor.HttpContext?.User == null)
+            {
+                return Guid.Empty;
+            }
+
+            return AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User).CompanyId;
+        }
+    }
 
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,

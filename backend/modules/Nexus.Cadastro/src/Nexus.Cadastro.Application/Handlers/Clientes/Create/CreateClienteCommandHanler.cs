@@ -32,16 +32,14 @@ public sealed class CreateClienteCommandHandler(CadastroDbContext cadastroDbCont
             Identifier = request.Overview.Identifier,
             AvatarUrl = request.Overview.AvatarUrl,
             Address = new Address(
-                new AddressDetails(
-                    request.Address.Street,
-                    request.Address.Number,
-                    request.Address.Complement,
-                    request.Address.Neighborhood,
-                    request.Address.City,
-                    request.Address.State,
-                    request.Address.Country,
-                    request.Address.ZipCode
-                )
+                request.Address.Street,
+                request.Address.Number,
+                request.Address.Complement,
+                request.Address.Neighborhood,
+                request.Address.City,
+                request.Address.State,
+                request.Address.Country,
+                request.Address.ZipCode
             )
         };
 

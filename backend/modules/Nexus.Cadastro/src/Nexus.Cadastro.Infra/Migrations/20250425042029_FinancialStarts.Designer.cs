@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nexus.Cadastro.Infra.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nexus.Cadastro.Infra.Migrations
 {
     [DbContext(typeof(CadastroDbContext))]
-    partial class CadastroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425042029_FinancialStarts")]
+    partial class FinancialStarts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,9 +372,6 @@ namespace Nexus.Cadastro.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
-
                     b.ToTable("Address");
                 });
 
@@ -379,6 +379,12 @@ namespace Nexus.Cadastro.Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AddressId1")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CompanyType")
@@ -418,6 +424,8 @@ namespace Nexus.Cadastro.Infra.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId1");
 
                     b.ToTable("Companies");
 
@@ -490,15 +498,15 @@ namespace Nexus.Cadastro.Infra.Migrations
                     b.Navigation("FinancialTransactionCategory");
                 });
 
-            modelBuilder.Entity("Nexus.Core.Domain.Entities.Address", b =>
+            modelBuilder.Entity("Nexus.Core.Domain.Entities.Company", b =>
                 {
-                    b.HasOne("Nexus.Core.Domain.Entities.Company", "Company")
-                        .WithOne("Address")
-                        .HasForeignKey("Nexus.Core.Domain.Entities.Address", "CompanyId")
+                    b.HasOne("Nexus.Core.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.CompanyTenant", b =>
@@ -510,12 +518,6 @@ namespace Nexus.Cadastro.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Contabilidade");
-                });
-
-            modelBuilder.Entity("Nexus.Core.Domain.Entities.Company", b =>
-                {
-                    b.Navigation("Address")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.AccountingTenant", b =>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nexus.Cadastro.Infra.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nexus.Cadastro.Infra.Migrations
 {
     [DbContext(typeof(CadastroDbContext))]
-    partial class CadastroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425042254_resolve-error")]
+    partial class resolveerror
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -492,13 +495,11 @@ namespace Nexus.Cadastro.Infra.Migrations
 
             modelBuilder.Entity("Nexus.Core.Domain.Entities.Address", b =>
                 {
-                    b.HasOne("Nexus.Core.Domain.Entities.Company", "Company")
+                    b.HasOne("Nexus.Core.Domain.Entities.Company", null)
                         .WithOne("Address")
                         .HasForeignKey("Nexus.Core.Domain.Entities.Address", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.CompanyTenant", b =>

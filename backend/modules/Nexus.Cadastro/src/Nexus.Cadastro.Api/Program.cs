@@ -1,6 +1,5 @@
 using System.Text;
 using APIWeaver;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
@@ -8,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using Nexus.Cadastro.Api.Extensions;
 using Nexus.Cadastro.Api.Mapping;
 using Nexus.Cadastro.Application.Extensions;
-using Nexus.Cadastro.Application.Handlers.Clientes.Create;
 using Nexus.Core.Api.Extensions;
 using Nexus.Core.Infra.Interceptors;
 using Scalar.AspNetCore;
