@@ -12,6 +12,7 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
     public DbSet<FinancialTransactionType> FinancialTransactionTypes { get; set; }
     public DbSet<FinancialTransactionCategory> FinancialTransactionCategories { get; set; }
     public DbSet<FinancialTransactionSubCategory> FinancialTransactionSubCategories { get; set; }
+    
     #endregion
 
     #region [Modules] - [Inventory]
@@ -20,6 +21,15 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
     public DbSet<Warehouse> Warehouses { get; set; }
 
     #endregion
+
+    #region [Modules] - [POS]
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<SaleItem> SaleItems { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
+
+    #endregion
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
