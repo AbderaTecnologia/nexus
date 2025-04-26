@@ -1,18 +1,18 @@
 using FluentValidation;
 using Nexus.Cadastro.Application.Models.Dtos;
 
-namespace Nexus.Cadastro.Application.Handlers.Clientes.Create;
+namespace Nexus.Cadastro.Application.Handlers.Tenants.Create;
 
-public sealed record CreateClienteCommand(
+public sealed record CreateTenantCommand(
     IEnumerable<ContactDto> Contacts,
     AddressDto Address,
     OverviewDto Overview,
     ProfileImageDto ProfileImage
 ) : IRequest<IResult>;
 
-public sealed class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>
+public sealed class CreateTenantCommandValidator : AbstractValidator<CreateTenantCommand>
 {
-    public CreateClienteCommandValidator()
+    public CreateTenantCommandValidator()
     {
         RuleFor(x => x.Address)
             .SetValidator(new AddressDtoValidation());
