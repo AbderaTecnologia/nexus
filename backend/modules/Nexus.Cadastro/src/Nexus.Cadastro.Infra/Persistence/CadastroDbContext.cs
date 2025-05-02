@@ -2,9 +2,8 @@ namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
 {
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<AccountingTenant> Contabilidades { get; set; }
-    public DbSet<CompanyTenant> Clientes { get; set; }
+    public DbSet<AccountingTenant> Accounting { get; set; }
+    public DbSet<CompanyTenant> Tenants { get; set; }
 
     #region [Modules] - [Finance]
     public DbSet<FinancialAccount> FinancialAccounts { get; set; }

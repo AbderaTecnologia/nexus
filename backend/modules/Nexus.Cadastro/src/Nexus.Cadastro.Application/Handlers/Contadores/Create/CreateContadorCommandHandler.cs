@@ -14,7 +14,7 @@ public class CreateContadorCommandHandler(CadastroDbContext _context, IAuthServi
             Email = request.Email,
         };
 
-        _context.Contabilidades.Add(contabilidade);
+        _context.Accounting.Add(contabilidade);
         await _context.SaveChangesAsync(cancellationToken);
 
         //Cria o usuário administrador chamando o serviço de autenticação

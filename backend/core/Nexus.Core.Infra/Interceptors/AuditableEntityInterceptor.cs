@@ -67,19 +67,6 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
 
                 e.CompanyId = CompanyId;
             });
-        
-        context?.ChangeTracker
-            .Entries()
-            .Select(e => e.Entity)
-            .OfType<ICustomerCompany>()
-            .Where(e => e.ContabilidadeId == Guid.Empty)
-            .ForEach(e =>
-            {
-                if (CompanyId == Guid.Empty)
-                    throw new InvalidOperationException($"Cannot set an empty CompanyId on {e.GetType()} entity.");
-                    
-                e.ContabilidadeId = CompanyId;
-            });
     }
 
     protected virtual void SetAuditInfoAdded(AuthenticatedUser user, DbContext? context)

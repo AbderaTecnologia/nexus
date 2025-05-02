@@ -43,7 +43,7 @@ public sealed class CreateTenantCommandHandler(CadastroDbContext cadastroDbConte
             )
         };
 
-        cadastroDbContext.Clientes.Add(tenant);
+        cadastroDbContext.Tenants.Add(tenant);
         await cadastroDbContext.SaveChangesAsync(cancellationToken);
 
         return Created($"/api/cadastro/tenant/{tenant.Id}", tenant.Id);
