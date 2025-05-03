@@ -1,8 +1,8 @@
 using MediatR;
 using Nexus.Cadastro.Application.Handlers.Products.Create;
+using Nexus.Cadastro.Application.Handlers.Products.Delete;
 using Nexus.Cadastro.Application.Handlers.Products.List;
 using Nexus.Cadastro.Application.Handlers.Products.Update;
-using Nexus.Cadastro.Application.Handlers.Products.Delete;
 using Nexus.Core.Api.Extensions;
 
 namespace Nexus.Cadastro.Api.Endpoints;
@@ -23,7 +23,7 @@ public static class ProductEndpoints
             group.MapGet("/", async (IMediator mediator) =>
                 await mediator.Send(new ListProductsQuery()))
                 .WithDescription("Listagem de produtos")
-                .ProducesResponse<IEnumerable<ProductViewModel>>(StatusCodes.Status200OK)
+                .ProducesResponse<IEnumerable<ProductViewModel>>(OK)
                 .Produces(StatusCodes.Status404NotFound);
 
             group.MapPut("/{id:guid}", async (Guid id, UpdateProductCommand command, IMediator mediator) =>

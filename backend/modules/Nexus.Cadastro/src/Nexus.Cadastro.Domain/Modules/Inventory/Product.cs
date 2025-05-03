@@ -55,4 +55,29 @@ public class Product : EntityCompanyBase, IActivatable
     {
         CostPrice = newCostPrice;
     }
+
+    public void Update(
+        string name,
+        string description,
+        string barcode,
+        string unitOfMeasure,
+        decimal price,
+        decimal costPrice
+    )
+    {
+        Name = name;
+        Description = description;
+        Barcode = barcode;
+        UnitOfMeasure = unitOfMeasure;
+        Price = price;
+        CostPrice = costPrice;
+    }
+
+    public void Delete(Guid userId)
+    {
+        IsActive = false;
+        IsDeleted = true;
+        DeletedAt = DateTime.UtcNow;
+        DeletedBy = userId;
+    }
 }

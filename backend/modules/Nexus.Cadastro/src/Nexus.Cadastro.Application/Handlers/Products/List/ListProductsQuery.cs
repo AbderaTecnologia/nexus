@@ -1,3 +1,5 @@
 namespace Nexus.Cadastro.Application.Handlers.Products.List;
 
-public sealed record ListProductsQuery : IRequest<IEnumerable<ProductViewModel>>;
+public sealed record ListProductsQuery : IRequest<IResult>
+{
+};

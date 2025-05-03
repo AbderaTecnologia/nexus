@@ -58,7 +58,10 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Company>()
-            .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
+            .HasQueryFilter(c => EF.Property<Guid>(c, "AccountingId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.Entity<Product>()
+            .HasQueryFilter(p => EF.Property<Guid>(p, "CompanyId") == companyIdInterceptor.CompanyId);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
     }
