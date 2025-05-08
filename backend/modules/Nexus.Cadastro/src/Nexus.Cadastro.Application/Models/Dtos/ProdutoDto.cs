@@ -1,6 +1,6 @@
-namespace Nexus.Cadastro.Domain.Entities;
+namespace Nexus.Cadastro.Application.Models.Dtos;
 
-public class Produto
+public class ProdutoDto
 {
     public Guid Id { get; set; }
     public string Nome { get; set; }
