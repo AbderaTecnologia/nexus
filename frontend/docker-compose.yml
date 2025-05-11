@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexus-front
+    image: nexus-front
+    ports:
+      - "8080:8080"
+    restart: always
+    volumes:
+      - "./Caddyfile:/etc/caddy/Caddyfile:ro"

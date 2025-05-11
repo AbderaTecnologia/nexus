@@ -25,11 +25,11 @@ type SignInFormSchema = {
 
 const validationSchema: ZodType<SignInFormSchema> = z.object({
     email: z
-        .string({ required_error: 'Please enter your email' })
-        .min(1, { message: 'Please enter your email' }),
+        .string({ required_error: 'Por favor, insira seu e-mail' })
+        .min(1, { message: 'Por favor, insira seu e-mail' }),
     password: z
-        .string({ required_error: 'Please enter your password' })
-        .min(1, { message: 'Please enter your password' }),
+        .string({ required_error: 'Por favor, insira sua senha' })
+        .min(1, { message: 'Por favor, insira sua senha' }),
 })
 
 const SignInForm = (props: SignInFormProps) => {
@@ -57,7 +57,7 @@ const SignInForm = (props: SignInFormProps) => {
         if (!disableSubmit) {
             setSubmitting(true)
 
-            const result = await signIn({ email, password })
+            const result = await signIn({ username: email, password })
 
             if (result?.status === 'failed') {
                 setMessage?.(result.message)
@@ -71,7 +71,7 @@ const SignInForm = (props: SignInFormProps) => {
         <div className={className}>
             <Form onSubmit={handleSubmit(onSignIn)}>
                 <FormItem
-                    label="Email"
+                    label="E-mail"
                     invalid={Boolean(errors.email)}
                     errorMessage={errors.email?.message}
                 >
@@ -81,7 +81,7 @@ const SignInForm = (props: SignInFormProps) => {
                         render={({ field }) => (
                             <Input
                                 type="email"
-                                placeholder="Email"
+                                placeholder="exemplo@nexus.com"
                                 autoComplete="off"
                                 {...field}
                             />
@@ -89,7 +89,7 @@ const SignInForm = (props: SignInFormProps) => {
                     />
                 </FormItem>
                 <FormItem
-                    label="Password"
+                    label="Senha"
                     invalid={Boolean(errors.password)}
                     errorMessage={errors.password?.message}
                     className={classNames(
@@ -104,7 +104,7 @@ const SignInForm = (props: SignInFormProps) => {
                         render={({ field }) => (
                             <PasswordInput
                                 type="text"
-                                placeholder="Password"
+                                placeholder="Senha"
                                 autoComplete="off"
                                 {...field}
                             />
@@ -118,7 +118,7 @@ const SignInForm = (props: SignInFormProps) => {
                     variant="solid"
                     type="submit"
                 >
-                    {isSubmitting ? 'Signing in...' : 'Sign In'}
+                    {isSubmitting ? 'Entrando...' : 'Entrar'}
                 </Button>
             </Form>
         </div>

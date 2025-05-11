@@ -1,16 +1,21 @@
 export type SignInCredential = {
-    email: string
+    username: string
     password: string
 }
 
 export type SignInResponse = {
-    token: string
-    user: {
-        userId: string
-        userName: string
-        authority: string[]
-        avatar: string
-        email: string
+    result : {
+        token: {
+            accessToken: string
+            refreshToken: string
+        }
+        user: {
+            userId: string
+            userName: string
+            authority: string[]
+            avatar: string
+            email: string
+        }
     }
 }
 
@@ -47,7 +52,7 @@ export type User = {
 
 export type Token = {
     accessToken: string
-    refereshToken?: string
+    refreshToken?: string
 }
 
 export type OauthSignInCallbackPayload = {

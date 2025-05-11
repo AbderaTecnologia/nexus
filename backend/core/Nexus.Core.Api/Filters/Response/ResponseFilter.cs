@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Nexus.Core.Application.Models;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
@@ -57,6 +58,9 @@ public sealed class ResponseFilter : IEndpointFilter
 
         if (isSuccess)
             return new ResponseBase<object?>(value);
+        
+        if(value is ValidationProblemDetails validationProblemDetails)
+            return new ResponseBase<object?>(validationProblemDetails);
         
         var errorMessage = (value is not null) ? value.ToString() : ((HttpStatusCode)statusCode!).ToString();
         return new ResponseBase<object?>(errorMessage);

@@ -6,8 +6,14 @@ public static class DatabaseConnectionExtensions
     {
         var connectionString = configuration.GetConnectionString("CadastroPostgresConnection");
 
-        services.AddDbContext<CadastroDbContext>(options =>
-            options.UseNpgsql(connectionString));
+        services.AddScoped<AuditableEntityInterceptor>();
+
+        services.AddDbContext<CadastroDbContext>((serviceProvider, options) =>
+        {
+            var interceptor = serviceProvider.GetRequiredService<AuditableEntityInterceptor>();
+            options.UseNpgsql(connectionString)
+                   .AddInterceptors(interceptor);
+        });
 
         return services;
     }

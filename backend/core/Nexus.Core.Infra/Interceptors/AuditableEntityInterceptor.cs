@@ -9,16 +9,32 @@ namespace Nexus.Core.Infra.Interceptors;
 
 public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor) : SaveChangesInterceptor
 {
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
-    public Guid CompanyId => AuthenticatedUser.FromClaimsPrincipal(_httpContextAccessor.HttpContext.User).CompanyId;
+    public AuditableEntityInterceptor() : this(null!)
+    {
+    }
+
+    public Guid CompanyId
+    {
+        get
+        {
+            if (httpContextAccessor.HttpContext?.User == null)
+            {
+                return Guid.Empty;
+            }
+
+            return AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User).CompanyId;
+        }
+    }
 
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
         InterceptionResult<int> result
     )
     {
-        var user = AuthenticatedUser.FromClaimsPrincipal(_httpContextAccessor.HttpContext.User);
+        var user = AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User);
         SetAuditInfoAdded(user, eventData.Context);
+        SetAuditInfoModified(user, eventData.Context);
+        SetCompanyId(eventData.Context);
 
         return base.SavingChanges(eventData, result);
     }
@@ -29,8 +45,10 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
         CancellationToken cancellationToken = default
     )
     {
-        var user = AuthenticatedUser.FromClaimsPrincipal(_httpContextAccessor.HttpContext.User);
+        var user = AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User);
         SetAuditInfoAdded(user, eventData.Context);
+        SetAuditInfoModified(user, eventData.Context);
+        SetCompanyId(eventData.Context);
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
@@ -60,9 +78,9 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
             .ForEach(e =>
             {
                 e.Entity.CreatedBy = user.UserId;
-                e.Entity.CreatedAt = DateTime.Now;
+                e.Entity.CreatedAt = DateTime.UtcNow;
                 e.Entity.UpdatedBy = user.UserId;
-                e.Entity.UpdatedAt = DateTime.Now;
+                e.Entity.UpdatedAt = DateTime.UtcNow;
             });
     }
 
@@ -75,7 +93,7 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
             .ForEach(e =>
             {
                 e.Entity.UpdatedBy = user.UserId;
-                e.Entity.UpdatedAt = DateTime.Now;
+                e.Entity.UpdatedAt = DateTime.UtcNow;
             });
     }
 }

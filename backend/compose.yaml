@@ -1,0 +1,18 @@
+﻿services:
+  nexus.financeiro.api:
+    image: nexus.financeiro.api
+    build:
+      context: .
+      dockerfile: modules/Nexus.Financeiro/src/Nexus.Financeiro.Api/Dockerfile
+
+  nexus.financeiro.api-1:
+    image: nexus.financeiro.api-1
+    build:
+      context: .
+      dockerfile: modules/Nexus.Financeiro/src/Nexus.Financeiro.Api/Dockerfile
+
+  teste:
+    image: teste
+    build:
+      context: .
+      dockerfile: Teste/Dockerfile

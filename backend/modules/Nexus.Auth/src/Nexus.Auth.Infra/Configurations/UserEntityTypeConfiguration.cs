@@ -11,7 +11,9 @@ namespace Nexus.Auth.Infra.Configurations
             builder.HasKey(u => u.Id);
 
             builder.Property(u => u.Id)
-                .ValueGeneratedOnAdd();
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("gen_random_uuid()")
+            .IsRequired();
 
             builder.Property(u => u.Username)
                 .IsRequired()

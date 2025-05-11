@@ -1,13 +1,14 @@
 #!/usr/bin/env pwsh
 
-# Nome da migração
+# Nome da migração e projeto
 param (
-    [string]$MigrationName
+    [string]$MigrationName,
+    [string]$Project
 )
 
 # Verifica se o nome da migração foi fornecido
 if (-not $MigrationName) {
-    Write-Host "Uso: .\create-migration.ps1 -MigrationName <nome-da-migracao>"
+    Write-Host "Uso: .\create-migration.ps1 -MigrationName <nome-da-migracao> [-Project <Auth|Cadastro>]"
     exit 1
 }
 
@@ -31,12 +32,20 @@ function CreateAndApplyMigration($projectPath, $migrationName, $startupProject) 
     }
 }
 
-# Cria e aplica a migração para o projeto de autenticação
-Write-Host "Criando migração para o projeto de autenticação..."
-CreateAndApplyMigration $AuthProject $MigrationName $AuthProjectStartup
-
-# Cria e aplica a migração para o projeto de cadastro
-Write-Host "Criando migração para o projeto de cadastro..."
-CreateAndApplyMigration $CadastroProject $MigrationName $CadastroProjectStartup
+# Verifica qual projeto foi especificado
+switch ($Project) {
+    "Auth" {
+        Write-Host "Criando migração para o projeto de autenticação..."
+        CreateAndApplyMigration $AuthProject $MigrationName $AuthProjectStartup
+    }
+    "Cadastro" {
+        Write-Host "Criando migração para o projeto de cadastro..."
+        CreateAndApplyMigration $CadastroProject $MigrationName $CadastroProjectStartup
+    }
+    default {
+        Write-Host "Projeto inválido ou não especificado. Use 'Auth' ou 'Cadastro'."
+        exit 1
+    }
+}
 
 Write-Host "Processo de migração concluído!"

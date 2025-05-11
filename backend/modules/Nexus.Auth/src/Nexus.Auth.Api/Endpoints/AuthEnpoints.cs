@@ -1,6 +1,7 @@
 using MediatR;
 using Nexus.Auth.Application.Handlers.Users.CreateUserHandler;
 using Nexus.Auth.Application.Handlers.Users.LoginHandler;
+using Nexus.Auth.Application.Handlers.Users.LogoutHandler;
 using Nexus.Auth.Application.Models;
 using Nexus.Core.Api.Extensions;
 using static System.Net.HttpStatusCode;
@@ -22,6 +23,12 @@ public static class AuthEndpoints
                 mediator.Send(createUserCommand))
                 .WithDescription("Criação de usuário")
                 .ProducesResponse(Created)
+                .ProducesResponse(BadRequest);
+
+            group.MapPost("/logout", (LogoutCommand logoutCommand, IMediator mediator) =>
+                mediator.Send(logoutCommand))
+                .WithDescription("Logout de usuário")
+                .ProducesResponse(OK)
                 .ProducesResponse(BadRequest);
         });
 }

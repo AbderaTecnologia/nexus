@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  cadastro-api:
+    build:
+      context: .
+      dockerfile: backend/dockerfiles/Cadastro.Api.dockerfile
+    ports:
+      - "5001:5001"
+
+  auth-api:
+    build:
+      context: .
+      dockerfile: backend/dockerfiles/Auth.Api.Web.dockerfile
+    ports:
+      - "5002:5002"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cadastro-api
+      - auth-api

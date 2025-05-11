@@ -29,6 +29,7 @@ export async function apiSignOut() {
     return ApiService.fetchDataWithAxios({
         url: endpointConfig.signOut,
         method: 'post',
+        data: {},
     })
 }
 

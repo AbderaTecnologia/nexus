@@ -2,16 +2,40 @@ namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
 {
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<Contabilidade> Contabilidades { get; set; }
-    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<AccountingTenant> Accounting { get; set; }
+    public DbSet<CompanyTenant> Tenants { get; set; }
+
+    #region [Modules] - [Finance]
+    public DbSet<FinancialAccount> FinancialAccounts { get; set; }
+    public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
+    public DbSet<FinancialTransactionType> FinancialTransactionTypes { get; set; }
+    public DbSet<FinancialTransactionCategory> FinancialTransactionCategories { get; set; }
+    public DbSet<FinancialTransactionSubCategory> FinancialTransactionSubCategories { get; set; }
+    
+    #endregion
+
+    #region [Modules] - [Inventory]
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Warehouse> Warehouses { get; set; }
+
+    #endregion
+
+    #region [Modules] - [POS]
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<SaleItem> SaleItems { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
+
+    #endregion
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Company>()
             .HasDiscriminator<string>("CompanyType")
-            .HasValue<Contabilidade>("Contabilidade")
-            .HasValue<Cliente>("Cliente");
+            .HasValue<AccountingTenant>("Accounting")
+            .HasValue<CompanyTenant>("CompanyTenant");
 
         modelBuilder.Entity<Company>()
             .Property(c => c.Id)
@@ -27,22 +51,23 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
             .HasMaxLength(100)
             .IsRequired();
 
-        modelBuilder.Entity<Contabilidade>()
-            .HasMany(c => c.Clientes)
-            .WithOne(c => c.Contabilidade)
-            .HasForeignKey(c => c.ContabilidadeId);
-
-        modelBuilder.Entity<Cliente>()
-            .HasOne(c => c.Contabilidade)
-            .WithMany(c => c.Clientes)
-            .HasForeignKey(c => c.ContabilidadeId);
-
-        modelBuilder.Entity<Cliente>()
-            .Property(c => c.Identifier)
-            .HasMaxLength(14)
-            .IsRequired();
+        modelBuilder.Entity<Company>()
+            .HasOne(c => c.Address)
+            .WithOne(a => a.Company)
+            .HasForeignKey<Address>(a => a.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Company>()
-            .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
+            .HasQueryFilter(c => EF.Property<Guid>(c, "AccountingId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.Entity<Product>()
+            .HasQueryFilter(p => EF.Property<Guid>(p, "CompanyId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(companyIdInterceptor);
     }
 }

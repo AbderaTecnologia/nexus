@@ -9,8 +9,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddSingleton<AuditableEntityInterceptor>();
 builder.Services.AddHttpContextAccessor();

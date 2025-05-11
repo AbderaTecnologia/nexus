@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Nexus.Cadastro.Application.Handlers.Contador.Create;
+using Nexus.Cadastro.Application.Handlers.Contadores.Create;
 using Nexus.Cadastro.Domain.Entities;
 
 namespace Nexus.Cadastro.Api.Extensions;
@@ -15,5 +15,5 @@ public static class JsonConfigureExtension
 }
 
 [JsonSerializable(typeof(CreateContadorCommand))]
-[JsonSerializable(typeof(Contabilidade))]
+[JsonSerializable(typeof(AccountingTenant))]
 public partial class CadastroJsonContext : JsonSerializerContext;

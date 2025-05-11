@@ -12,8 +12,8 @@ const appConfig: AppConfig = {
     apiPrefix: '/api',
     authenticatedEntryPath: '/home',
     unAuthenticatedEntryPath: '/sign-in',
-    locale: 'en',
-    accessTokenPersistStrategy: 'cookies',
+    locale: 'pt-BR',
+    accessTokenPersistStrategy: 'localStorage',
     enableMock: true,
     activeNavTranslation: false,
 }

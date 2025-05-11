@@ -6,10 +6,11 @@ public class AuthService(IAuthApi authApi) : IAuthService
 {
     private readonly IAuthApi _authApi = authApi;
 
-    public async Task<bool> CreateUserAsync(string username, string password, Guid companyId)
+    public async Task<bool> CreateUserAsync(string userFullName, string username, string password, Guid companyId)
     {
         var createUserRequest = new CreateUserRequest
         {
+            FullName = userFullName,
             Username = username,
             Password = password,
             CompanyId = companyId
@@ -29,6 +30,7 @@ public interface IAuthApi
 
 public class CreateUserRequest
 {
+    public required string FullName { get; set; }
     public required string Username { get; set; }
     public required string Password { get; set; }
     public Guid CompanyId { get; set; }

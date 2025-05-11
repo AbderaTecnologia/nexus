@@ -1,0 +1,69 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+  workflow_dispatch:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Get changed files for backend
+        id: get_changed_backend
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            return files.data.map(f => f.filename);
+            
+      - name: Run backend steps
+        if: contains(steps.get_changed_backend.outputs.result, 'backend/')
+        run: |
+          cd backend
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get changed files for frontend
+        id: get_changed_frontend
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+            return files.data.map(f => f.filename);
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Install and Build frontend
+        if: contains(steps.get_changed_frontend.outputs.result, 'frontend/')
+        run: |
+          cd frontend
+          npm install
+          npm run build
