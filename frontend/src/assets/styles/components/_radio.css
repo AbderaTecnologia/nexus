@@ -31,10 +31,12 @@
 
   .radio-label {
     @apply items-center cursor-pointer inline-flex gap-2.5 font-semibold;
-
-    &:hover {
-      .radio {
-        @apply ring-current border-current;
+    
+    &:not(.disabled) {
+      &:hover {
+        .radio {
+          @apply ring-current border-current;
+        }
       }
     }
 

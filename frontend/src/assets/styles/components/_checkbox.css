@@ -30,11 +30,13 @@
   }
   
   .checkbox-label {
-    @apply inline-flex cursor-pointer gap-2.5 font-semibold;
+    @apply inline-flex cursor-pointer gap-2.5 font-semibold items-center;
   
-    &:hover {
-      .checkbox {
-        @apply ring-current border-current;
+    &:not(.disabled) {
+      &:hover {
+        .checkbox {
+          @apply ring-current border-current;
+        }
       }
     }
   
