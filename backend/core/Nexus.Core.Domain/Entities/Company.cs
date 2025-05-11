@@ -6,6 +6,5 @@ public abstract class Company : EntitySoftDeletedBase
 {
     public string Name { get; init; } = string.Empty;
     public string Email { get; init; } = string.Empty;
-    public Guid AddressId { get; init; }
-    public Address Address { get; init; } = null!;
+    public Address? Address { get; init; } = null!;
 }

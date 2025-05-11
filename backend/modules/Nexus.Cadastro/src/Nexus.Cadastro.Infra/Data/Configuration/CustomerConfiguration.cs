@@ -9,7 +9,7 @@ namespace Nexus.Cadastro.Infra.Data.Configuration
             builder
                 .HasOne(c => c.Contabilidade)
                 .WithMany(c => c.Clientes)
-                .HasForeignKey(c => c.ContabilidadeId);
+                .HasForeignKey(c => c.AccountingId);
 
             builder
                 .Property(c => c.Identifier)

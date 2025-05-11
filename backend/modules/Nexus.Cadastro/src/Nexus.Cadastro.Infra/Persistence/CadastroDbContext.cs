@@ -1,12 +1,34 @@
-using Nexus.Cadastro.Infra.Data.Configuration;
-
 namespace Nexus.Cadastro.Infra.Persistence;
 
 public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, AuditableEntityInterceptor companyIdInterceptor) : DbContext(options)
 {
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<AccountingTenant> Contabilidades { get; set; }
-    public DbSet<CompanyTenant> Clientes { get; set; }
+    public DbSet<AccountingTenant> Accounting { get; set; }
+    public DbSet<CompanyTenant> Tenants { get; set; }
+
+    #region [Modules] - [Finance]
+    public DbSet<FinancialAccount> FinancialAccounts { get; set; }
+    public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
+    public DbSet<FinancialTransactionType> FinancialTransactionTypes { get; set; }
+    public DbSet<FinancialTransactionCategory> FinancialTransactionCategories { get; set; }
+    public DbSet<FinancialTransactionSubCategory> FinancialTransactionSubCategories { get; set; }
+    
+    #endregion
+
+    #region [Modules] - [Inventory]
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Warehouse> Warehouses { get; set; }
+
+    #endregion
+
+    #region [Modules] - [POS]
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<SaleItem> SaleItems { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
+
+    #endregion
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,9 +52,18 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
             .IsRequired();
 
         modelBuilder.Entity<Company>()
-            .HasQueryFilter(c => EF.Property<Guid>(c, "ContabilidadeId") == companyIdInterceptor.CompanyId);
+            .HasOne(c => c.Address)
+            .WithOne(a => a.Company)
+            .HasForeignKey<Address>(a => a.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
+        modelBuilder.Entity<Company>()
+            .HasQueryFilter(c => EF.Property<Guid>(c, "AccountingId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.Entity<Product>()
+            .HasQueryFilter(p => EF.Property<Guid>(p, "CompanyId") == companyIdInterceptor.CompanyId);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CadastroDbContext).Assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

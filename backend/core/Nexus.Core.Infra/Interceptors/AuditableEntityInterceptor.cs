@@ -9,7 +9,22 @@ namespace Nexus.Core.Infra.Interceptors;
 
 public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor) : SaveChangesInterceptor
 {
-    public Guid CompanyId => AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User).CompanyId;
+    public AuditableEntityInterceptor() : this(null!)
+    {
+    }
+
+    public Guid CompanyId
+    {
+        get
+        {
+            if (httpContextAccessor.HttpContext?.User == null)
+            {
+                return Guid.Empty;
+            }
+
+            return AuthenticatedUser.FromClaimsPrincipal(httpContextAccessor.HttpContext.User).CompanyId;
+        }
+    }
 
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
@@ -51,19 +66,6 @@ public class AuditableEntityInterceptor(IHttpContextAccessor httpContextAccessor
                     throw new InvalidOperationException($"Cannot set an empty CompanyId on {e.GetType()} entity.");
 
                 e.CompanyId = CompanyId;
-            });
-        
-        context?.ChangeTracker
-            .Entries()
-            .Select(e => e.Entity)
-            .OfType<ICustomerCompany>()
-            .Where(e => e.ContabilidadeId == Guid.Empty)
-            .ForEach(e =>
-            {
-                if (CompanyId == Guid.Empty)
-                    throw new InvalidOperationException($"Cannot set an empty CompanyId on {e.GetType()} entity.");
-                    
-                e.ContabilidadeId = CompanyId;
             });
     }
 

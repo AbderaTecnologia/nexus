@@ -6,12 +6,11 @@ namespace Nexus.Cadastro.Application.Handlers.Tenants.List;
 
 public sealed record ListTenantsQuery : IRequest<IResult>;
 
-public class ListTenantsQueryHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<ListTenantsQuery, IResult>
+public sealed class ListTenantsQueryHandler(CadastroDbContext cadastroDbContext) : IRequestHandler<ListTenantsQuery, IResult>
 {
-    public Task<IResult> Handle(ListTenantsQuery request, CancellationToken cancellationToken)
+    public async Task<IResult> Handle(ListTenantsQuery request, CancellationToken cancellationToken)
     {
-        var tenants = cadastroDbContext.Clientes
-        .AsNoTracking()
+        var tenants = await cadastroDbContext.Tenants
         .Select(
             c => new TenantViewModel
             {
@@ -21,8 +20,8 @@ public class ListTenantsQueryHandler(CadastroDbContext cadastroDbContext) : IReq
                 CpfCnpj = c.Identifier,
                 Type = c.Identifier.Length > 11 ? "PJ" : "PF"
             }
-        );
+        ).ToListAsync(cancellationToken);
 
-        return Task.FromResult(Ok(tenants));
+        return Ok(tenants);
     }
 }

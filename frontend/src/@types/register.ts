@@ -1,3 +1,5 @@
+import { AddressFields, OverviewFields } from "@/views/register/customers/Form/types"
+
 export type CustomersList = {
     result: Customer[]
 }
@@ -12,7 +14,6 @@ export type Customer = {
 }
 
 export type CustomerRequest = {
-    nome: string,
-    cpfCnpj: string,
-    email: string,
+    overview: OverviewFields,
+    address: AddressFields
 }

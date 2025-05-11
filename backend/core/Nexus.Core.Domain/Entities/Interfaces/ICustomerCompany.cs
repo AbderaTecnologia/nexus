@@ -2,5 +2,5 @@ namespace Nexus.Core.Domain.Entities.Interfaces;
 
 public interface ICustomerCompany
 {
-    public Guid ContabilidadeId { get; set; }
+    public Guid? AccountingId { get; set; }
 }
