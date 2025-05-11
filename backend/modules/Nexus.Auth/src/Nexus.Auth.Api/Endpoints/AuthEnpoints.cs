@@ -30,15 +30,5 @@ public static class AuthEndpoints
                 .WithDescription("Logout de usuário")
                 .ProducesResponse(OK)
                 .ProducesResponse(BadRequest);
-
-            group.MapGet("/test-auth", async (IMediator mediator) =>
-            {
-                // This is a placeholder for actual authentication testing logic
-                return Results.Ok(new { Message = "Authentication successful" });
-            })
-            .RequireAuthorization()
-            .WithDescription("Test authentication")
-            .ProducesResponse(OK)
-            .ProducesResponse(Unauthorized);
         });
 }

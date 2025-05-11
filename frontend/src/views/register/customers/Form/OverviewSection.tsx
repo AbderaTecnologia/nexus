@@ -1,10 +1,9 @@
 import { useMemo } from 'react'
 import Card from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
-import Select, { Option as DefaultOption } from '@/components/ui/Select'
+import { Option as DefaultOption } from '@/components/ui/Select'
 import Avatar from '@/components/ui/Avatar'
 import { FormItem } from '@/components/ui/Form'
-import NumericInput from '@/components/shared/NumericInput'
 import { countryList } from '@/constants/countries.constant'
 import { Controller } from 'react-hook-form'
 import { components } from 'react-select'
@@ -40,35 +39,7 @@ const CustomSelectOption = (props: OptionProps<CountryOption>) => {
     )
 }
 
-const CustomControl = ({ children, ...props }: ControlProps<CountryOption>) => {
-    const selected = props.getValue()[0]
-    return (
-        <Control {...props}>
-            {selected && (
-                <Avatar
-                    className="ltr:ml-4 rtl:mr-4"
-                    shape="circle"
-                    size={20}
-                    src={`/img/countries/${selected.value}.png`}
-                />
-            )}
-            {children}
-        </Control>
-    )
-}
-
 const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
-    const dialCodeList = useMemo(() => {
-        const newCountryList: Array<CountryOption> = JSON.parse(
-            JSON.stringify(countryList),
-        )
-
-        return newCountryList.map((country) => {
-            country.label = country.dialCode
-            return country
-        })
-    }, [])
-
     return (
         <Card>
             <h4 className="mb-6">Dados básicos</h4>
@@ -102,7 +73,6 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
                         render={({ field }) => (
                             <FormCustomFormatInput
                                 {...field}
-                                placeholder="Ex.: 000.000.000-00 ou 00.000.000/0000-00"
                                 format={(value: string) => {
                                     // Aplica a máscara de CPF ou CNPJ dinamicamente
                                     const onlyNumbers = value.replace(/\D/g, '')
