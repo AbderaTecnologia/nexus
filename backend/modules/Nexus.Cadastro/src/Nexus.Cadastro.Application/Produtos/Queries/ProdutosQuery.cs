@@ -1,7 +1,6 @@
 using Nexus.Cadastro.Application.Models.Dtos;
-using Nexus.Cadastro.Domain.Entities;
 
-namespace Nexus.Cadastro.Application.Queries;
+namespace Nexus.Cadastro.Application.Produtos.Queries;
 
 public class ProdutosQuery : IRequest<List<ProdutoDto>>
 {
@@ -12,4 +11,5 @@ public class ProdutosQuery : IRequest<List<ProdutoDto>>
     public int? EstoqueMaximo { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
+    
 }
