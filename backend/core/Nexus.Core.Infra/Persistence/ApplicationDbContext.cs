@@ -2,5 +2,5 @@
 
 public abstract class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    public const object Produtos = VALUE;
+    
 }

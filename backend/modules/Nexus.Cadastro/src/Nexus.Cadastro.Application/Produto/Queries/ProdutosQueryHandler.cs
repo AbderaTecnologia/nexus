@@ -1,9 +1,8 @@
 using Nexus.Cadastro.Application.Models.Dtos;
-using Nexus.Cadastro.Infra.Repositories;
 
-namespace Nexus.Cadastro.Application.Produtos.Queries;
+namespace Nexus.Cadastro.Application.Produto.Queries;
 
-public class ProdutosQueryHandler : IRequestHandler<ProdutosQuery, List<ProdutoDto>>
+public class ProdutosQueryHandler : IRequestHandler<ProdutoQuery, List<ProdutoDto>>
 {
   private readonly IProdutoRepository _repository;
 
@@ -12,7 +11,7 @@ public class ProdutosQueryHandler : IRequestHandler<ProdutosQuery, List<ProdutoD
     _repository = repository;
   }
 
-  public async Task<List<ProdutoDto>> Handle(ProdutosQuery request, CancellationToken cancellationToken)
+  public async Task<List<ProdutoDto>> Handle(ProdutoQuery request, CancellationToken cancellationToken)
   {
     var query = _repository.Query();
 

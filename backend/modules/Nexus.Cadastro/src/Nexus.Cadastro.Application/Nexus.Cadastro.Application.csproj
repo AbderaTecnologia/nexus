@@ -25,6 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Payloads\" />
-      <Folder Include="Produtos\" />
+      <Folder Include="Produto\" />
     </ItemGroup>
 </Project>
