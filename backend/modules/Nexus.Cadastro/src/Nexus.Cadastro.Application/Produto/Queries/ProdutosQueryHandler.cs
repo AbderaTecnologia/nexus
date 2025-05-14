@@ -1,19 +1,21 @@
+using Microsoft.EntityFrameworkCore;
 using Nexus.Cadastro.Application.Models.Dtos;
+using Nexus.Cadastro.Infra.Persistence;
 
 namespace Nexus.Cadastro.Application.Produto.Queries;
 
 public class ProdutosQueryHandler : IRequestHandler<ProdutoQuery, List<ProdutoDto>>
 {
-  private readonly IProdutoRepository _repository;
+  private readonly CadastroDbContext _context;
 
-  public ProdutosQueryHandler(IProdutoRepository repository)
+  public ProdutosQueryHandler(CadastroDbContext context)
   {
-    _repository = repository;
+    _context = context;
   }
 
   public async Task<List<ProdutoDto>> Handle(ProdutoQuery request, CancellationToken cancellationToken)
   {
-    var query = _repository.Query();
+    var query = _context.Produtos.AsNoTracking().AsQueryable();
 
     if (request.PrecoMinimo.HasValue)
       query = query.Where(p => p.Preco >= request.PrecoMinimo.Value);

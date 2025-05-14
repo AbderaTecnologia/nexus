@@ -15,13 +15,13 @@ public static class ProdutoEndpoints
 
             group.MapPost("/create", async (CreateProdutoCommand createProdutoCommand, IMediator mediator) =>
                     await mediator.Send(createProdutoCommand))
-                .WithDescription("Criar novo Produto")
+                .WithDescription("Criar Produto")
                 .ProducesResponse(Created)
                 .ProducesResponse(BadRequest);
 
             group.MapGet("/", async (IMediator mediator) =>
-                    await mediator.Send(new ListProdutoQuery()))
-                .WithDescription("")
+                    await mediator.Send(new ListProdutosQuery()))
+                .WithDescription("Listar Produtos")
                 .ProducesResponse<IEnumerable<ProdutoViewModel>>(OK)
                 .ProducesResponse(BadRequest);
 

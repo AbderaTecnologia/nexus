@@ -4,9 +4,8 @@ namespace Nexus.Cadastro.Application.Produto.Queries;
 
 public class ProdutoQuery : IRequest<List<ProdutoDto>>
 {
-    public string Categoria { get; set; }
-    public float? PrecoMinimo { get; set; }
-    public float? PrecoMaximo { get; set; }
+    public double? PrecoMinimo { get; set; }
+    public double? PrecoMaximo { get; set; }
     public int? EstoqueMinimo { get; set; }
     public int? EstoqueMaximo { get; set; }
     public int PageNumber { get; set; } = 1;
