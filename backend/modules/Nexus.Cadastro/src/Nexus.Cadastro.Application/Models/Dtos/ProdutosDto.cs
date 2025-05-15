@@ -1,10 +1,38 @@
+using FluentValidation;
+
 namespace Nexus.Cadastro.Application.Models.Dtos;
 
-public class ProdutoDto
+public sealed record ProdutosDto(
+
+     Guid Id,
+     string Nome,
+     double Preco,
+     int Estoque, 
+     string Descricao 
+    );
+
+public sealed class ProdutosDtoValidation : AbstractValidator<ProdutosDto>
 {
-    public Guid Id { get; set; }
-    public string Nome { get; set; }
-    public double Preco { get; set; }
-    public int Estoque { get; set; }
-    public string Descricao { get; set; }
+    public ProdutosDtoValidation()
+    {
+        RuleFor(x => x.Id)
+            .NotEqual(Guid.Empty).WithMessage(" ");
+
+        RuleFor(x => x.Nome)
+            .NotEmpty().WithMessage(" ")
+            .MaximumLength(150).WithMessage(" ");
+
+        RuleFor(x => x.Preco)
+            .GreaterThanOrEqualTo(0).WithMessage(" ");
+        
+        RuleFor(x => x.Estoque)
+            .NotEmpty().WithMessage(" ");
+        
+        RuleFor(x => x.Descricao)
+            .MaximumLength(150).WithMessage(" ");
+    }
 }
+    
+    
+
+

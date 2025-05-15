@@ -4,16 +4,16 @@ using Nexus.Cadastro.Infra.Persistence;
 
 namespace Nexus.Cadastro.Application.Produto.Queries;
 
-public class ProdutosQueryHandler : IRequestHandler<ProdutoQuery, List<ProdutoDto>>
+public class ProdutoQueryHandler : IRequestHandler<ProdutoQuery, List<ProdutosDto>>
 {
   private readonly CadastroDbContext _context;
 
-  public ProdutosQueryHandler(CadastroDbContext context)
+  public ProdutoQueryHandler(CadastroDbContext context)
   {
     _context = context;
   }
 
-  public async Task<List<ProdutoDto>> Handle(ProdutoQuery request, CancellationToken cancellationToken)
+  public async Task<List<ProdutosDto>> Handle(ProdutoQuery request, CancellationToken cancellationToken)
   {
     var query = _context.Produtos.AsNoTracking().AsQueryable();
 
@@ -34,15 +34,15 @@ public class ProdutosQueryHandler : IRequestHandler<ProdutoQuery, List<ProdutoDt
       .Take(request.PageSize)
       .ToList();
 
-    var produtoDto = produtos.Select(p => new ProdutoDto
-    {
-      Id = p.Id,
-      Nome = p.Nome,
-      Preco = p.Preco,
-      Estoque = p.Estoque,
-      Descricao = p.Descricao,
-    }).ToList();
+    var produtosDto = produtos.Select(p => new ProdutosDto(
     
-    return await Task.FromResult(produtoDto);
+      p.Id,
+      p.Nome,
+      p.Preco,
+      p.Estoque,
+      p.Descricao
+    )).ToList();
+    
+    return await Task.FromResult(produtosDto);
   }
 }
