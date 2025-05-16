@@ -26,6 +26,18 @@
 
     <ItemGroup>
       <Folder Include="Payloads\" />
-      <Folder Include="Produto\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Produto\**" />
+      <Compile Remove="Handlers\Produtos\List\ProdutoQuery.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Produto\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Produto\**" />
     </ItemGroup>
 </Project>
