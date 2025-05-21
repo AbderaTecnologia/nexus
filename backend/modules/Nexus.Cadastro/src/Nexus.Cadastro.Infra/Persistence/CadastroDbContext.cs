@@ -7,7 +7,7 @@ public class CadastroDbContext(DbContextOptions<CadastroDbContext> options, Audi
     public DbSet<Company> Companies { get; set; }
     public DbSet<AccountingTenant> Contabilidades { get; set; }
     public DbSet<CompanyTenant> Clientes { get; set; }
-    public DbSet<Produto> Produtos { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

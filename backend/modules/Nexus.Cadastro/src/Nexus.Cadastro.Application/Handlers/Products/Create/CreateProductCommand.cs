@@ -1,20 +1,19 @@
 using FluentValidation;
-using Nexus.Cadastro.Application.Models;
 using Nexus.Cadastro.Application.Models.Dtos;
 
-namespace Nexus.Cadastro.Application.Handlers.Produtos.Create;
+namespace Nexus.Cadastro.Application.Handlers.Products.Create;
 
-public sealed record CreateProdutoCommand(
+public sealed record CreateProductCommand(
 
     ProdutosDto Produtos,
      Guid Id, 
-     string Nome,
-     string Descricao,
-     double Preco,
-     int Estoque
+     string Name,
+     string Description,
+     double Price,
+     int Stock
 );
 
-public sealed class CreateProdutoCommandValidator : AbstractValidator<CreateProdutoCommand>
+public sealed class CreateProdutoCommandValidator : AbstractValidator<CreateProductCommand>
 {
     public  CreateProdutoCommandValidator()
     {
@@ -24,17 +23,17 @@ public sealed class CreateProdutoCommandValidator : AbstractValidator<CreateProd
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage(" ");
         
-        RuleFor(x => x.Nome)
+        RuleFor(x => x.Name)
             .NotEmpty().WithMessage(" ")
             .MaximumLength(150).WithMessage(" ");
         
-        RuleFor(x => x.Descricao)
+        RuleFor(x => x.Description)
             .NotEmpty().WithMessage(" ");
         
-        RuleFor(x => x.Preco)
+        RuleFor(x => x.Price)
             .GreaterThan(0).WithMessage(" ");
         
-        RuleFor(x => x.Estoque)
+        RuleFor(x => x.Stock)
             .GreaterThan(0).WithMessage(" ");
     }
 }

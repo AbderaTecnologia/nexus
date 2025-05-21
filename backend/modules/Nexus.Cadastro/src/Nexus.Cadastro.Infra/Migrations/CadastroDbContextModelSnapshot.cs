@@ -22,7 +22,55 @@ namespace Nexus.Cadastro.Infra.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Address", b =>
+            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("character varying(800)");
+
+                    b.Property<int>("Estoque")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("decimal");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Produto", (string)null);
+                });
+
+            modelBuilder.Entity("Nexus.Core.Domain.Entities.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,6 +151,12 @@ namespace Nexus.Cadastro.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AddressId1")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CompanyType")
                         .IsRequired()
                         .HasMaxLength(13)
@@ -141,6 +195,8 @@ namespace Nexus.Cadastro.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId1");
+
                     b.ToTable("Companies");
 
                     b.HasDiscriminator<string>("CompanyType").HasValue("Company");
@@ -148,9 +204,20 @@ namespace Nexus.Cadastro.Infra.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Cliente", b =>
+            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.AccountingTenant", b =>
                 {
                     b.HasBaseType("Nexus.Core.Domain.Entities.Company");
+
+                    b.HasDiscriminator().HasValue("Accounting");
+                });
+
+            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.CompanyTenant", b =>
+                {
+                    b.HasBaseType("Nexus.Core.Domain.Entities.Company");
+
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid>("ContabilidadeId")
                         .HasColumnType("uuid");
@@ -162,19 +229,23 @@ namespace Nexus.Cadastro.Infra.Migrations
 
                     b.HasIndex("ContabilidadeId");
 
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.HasDiscriminator().HasValue("CompanyTenant");
                 });
 
-            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Contabilidade", b =>
+            modelBuilder.Entity("Nexus.Core.Domain.Entities.Company", b =>
                 {
-                    b.HasBaseType("Nexus.Core.Domain.Entities.Company");
+                    b.HasOne("Nexus.Core.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasDiscriminator().HasValue("Accounting");
+                    b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Cliente", b =>
+            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.CompanyTenant", b =>
                 {
-                    b.HasOne("Nexus.Cadastro.Domain.Entities.Contabilidade", "Contabilidade")
+                    b.HasOne("Nexus.Cadastro.Domain.Entities.AccountingTenant", "Contabilidade")
                         .WithMany("Clientes")
                         .HasForeignKey("ContabilidadeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -183,7 +254,7 @@ namespace Nexus.Cadastro.Infra.Migrations
                     b.Navigation("Contabilidade");
                 });
 
-            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.Contabilidade", b =>
+            modelBuilder.Entity("Nexus.Cadastro.Domain.Entities.AccountingTenant", b =>
                 {
                     b.Navigation("Clientes");
                 });

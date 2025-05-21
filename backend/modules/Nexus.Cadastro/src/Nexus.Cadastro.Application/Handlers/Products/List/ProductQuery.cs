@@ -1,8 +1,8 @@
 using Nexus.Cadastro.Application.Models.Dtos;
 
-namespace Nexus.Cadastro.Application.Produto.Queries;
+namespace Nexus.Cadastro.Application.Handlers.Products.List;
 
-public class ProdutoQuery : IRequest<List<ProdutosDto>>
+public class ProductQuery : IRequest<List<ProdutosDto>>
 {
     public double? PrecoMinimo { get; set; }
     public double? PrecoMaximo { get; set; }

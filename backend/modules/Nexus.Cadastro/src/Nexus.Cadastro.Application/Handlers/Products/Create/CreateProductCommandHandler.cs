@@ -1,18 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Nexus.Cadastro.Domain.Entities;
 using Nexus.Cadastro.Infra.Persistence;
-using Nexus.Core.Domain.Entities;
 
-namespace Nexus.Cadastro.Application.Handlers.Produtos.Create;
+namespace Nexus.Cadastro.Application.Handlers.Products.Create;
 
-public sealed class CreateProdutoCommandHandler
+public sealed class CreateProductCommandHandler
 {
     private readonly CadastroDbContext _context;
-    public CreateProdutoCommandHandler(CadastroDbContext context)
+    public CreateProductCommandHandler(CadastroDbContext context)
     {
         _context = context;
     }
-    public async Task<IResult> Handler(CreateProdutoCommand request, CancellationToken cancellationToken)
+    public async Task<IResult> Handler(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateProdutoCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -37,19 +36,19 @@ public sealed class CreateProdutoCommandHandler
             return BadRequest(problemDetails);
         }
 
-        var produto = new Produto
+        var product = new Product
         {
             Id = request.Id,
-            Nome = request.Nome,
-            Preco = request.Preco,
-            Estoque = request.Estoque,
-            Descricao = request.Descricao
+            Name = request.Name,
+            Price = request.Price,
+            Stock = request.Stock,
+            Description = request.Description
         };
 
-        _context.Produtos.Add(produto);
+        _context.Products.Add(product);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Created($"/api/cadastro/produto/{produto.Id}", produto.Id);
+        return Created($"/api/cadastro/produto/{product.Id}", product.Id);
     }
 }
 
