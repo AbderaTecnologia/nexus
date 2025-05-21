@@ -120,7 +120,7 @@ const Checkbox = (props: CheckboxProps) => {
 
     return (
         <label ref={labelRef} className={labelClass}>
-            <span className="checkbox-wrapper h-5 relative">
+            <span className="checkbox-wrapper relative">
                 <input
                     ref={ref}
                     className={classNames(

@@ -170,7 +170,7 @@ const DatePicker = (props: DatePickerProps) => {
             capitalize(dayjs(date).locale(finalLocale).format(dateFormat)),
         )
         if (closePickerOnChange) {
-            openDropdown()
+            closeDropdown()
         }
         window.setTimeout(() => inputRef.current?.focus(), 0)
     }

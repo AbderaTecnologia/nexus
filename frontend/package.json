@@ -1,7 +1,7 @@
 {
   "name": "ecme",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -122,6 +122,9 @@
     "react-simple-maps": {
       "react": "19.0.0",
       "react-dom": "19.0.0"
+    },
+    "react-syntax-highlighter": {
+      "prismjs": "1.30.0"
     }
   }
 }

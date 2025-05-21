@@ -98,7 +98,6 @@ const Switcher = (props: SwitcherProps) => {
                     `switcher-checked ${switcherColor}`,
                 disabled && 'switcher-disabled',
                 className,
-                switcherClass,
             )}
         >
             <input
