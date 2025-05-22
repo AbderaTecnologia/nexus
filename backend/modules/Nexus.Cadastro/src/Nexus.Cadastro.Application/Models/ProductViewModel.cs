@@ -7,5 +7,4 @@ public sealed record ProductViewModel
     public string Description { get; set; } = string.Empty;
     public double Price { get; init; }
     public int Stock { get; set; }
-    
 }

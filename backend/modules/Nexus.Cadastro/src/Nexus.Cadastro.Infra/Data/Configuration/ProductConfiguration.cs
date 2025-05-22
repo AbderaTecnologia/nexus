@@ -7,7 +7,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Product");
-        
+
         builder.HasKey(x => x.Id);
 
         builder.Property(p => p.Name)
@@ -17,7 +17,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Price)
             .IsRequired()
             .HasColumnType("decimal");
-        
+
         builder.Property(p => p.Stock)
             .IsRequired()
             .HasColumnType("int");

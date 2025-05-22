@@ -7,10 +7,12 @@ namespace Nexus.Cadastro.Application.Handlers.Products.Create;
 public sealed class CreateProductCommandHandler
 {
     private readonly CadastroDbContext _context;
+
     public CreateProductCommandHandler(CadastroDbContext context)
     {
         _context = context;
     }
+
     public async Task<IResult> Handler(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateProductCommandValidator();
@@ -51,4 +53,3 @@ public sealed class CreateProductCommandHandler
         return Created($"/api/cadastro/produto/{product.Id}", product.Id);
     }
 }
-

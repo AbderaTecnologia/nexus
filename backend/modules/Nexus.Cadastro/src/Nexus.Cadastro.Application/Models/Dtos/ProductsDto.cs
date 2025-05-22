@@ -3,13 +3,12 @@ using FluentValidation;
 namespace Nexus.Cadastro.Application.Models.Dtos;
 
 public sealed record ProductsDto(
-
-     Guid Id,
-     string Name,
-     double Price,
-     int Stock, 
-     string Description 
-    );
+    Guid Id,
+    string Name,
+    double Price,
+    int Stock,
+    string Description
+);
 
 public sealed class ProductsDtoValidation : AbstractValidator<ProductsDto>
 {
@@ -24,15 +23,11 @@ public sealed class ProductsDtoValidation : AbstractValidator<ProductsDto>
 
         RuleFor(x => x.Price)
             .GreaterThanOrEqualTo(0).WithMessage(" ");
-        
+
         RuleFor(x => x.Stock)
             .NotEmpty().WithMessage(" ");
-        
+
         RuleFor(x => x.Description)
             .MaximumLength(150).WithMessage(" ");
     }
 }
-    
-    
-
-
