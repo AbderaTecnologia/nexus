@@ -4,8 +4,6 @@ using Nexus.Cadastro.Application.Models.Dtos;
 namespace Nexus.Cadastro.Application.Handlers.Products.Create;
 
 public sealed record CreateProductCommand(
-
-    ProdutosDto Produtos,
      Guid Id, 
      string Name,
      string Description,
@@ -13,13 +11,10 @@ public sealed record CreateProductCommand(
      int Stock
 );
 
-public sealed class CreateProdutoCommandValidator : AbstractValidator<CreateProductCommand>
+public sealed class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
 {
-    public  CreateProdutoCommandValidator()
+    public  CreateProductCommandValidator()
     {
-        RuleFor(x => x.Produtos)
-            .SetValidator(new ProdutosDtoValidation());
-        
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage(" ");
         

@@ -13,7 +13,7 @@ public sealed class CreateProductCommandHandler
     }
     public async Task<IResult> Handler(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateProdutoCommandValidator();
+        var validator = new CreateProductCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
