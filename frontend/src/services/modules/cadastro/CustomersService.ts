@@ -11,7 +11,7 @@ class CustomersService {
   }
 
   public static async postCustomer(data: CustomerRequest) {
-    const response = await ApiService.fetchDataWithAxios({
+    await ApiService.fetchDataWithAxios({
       url: "/register/customer/",
       method: "post",
       data: data
@@ -29,12 +29,14 @@ export async function apiPostCustomer(data: CustomerRequest) {
 
 export async function apiGetCustomersList2<T, U extends Record<string, unknown>>(
   params: U,
-)
-{
+): Promise<T> {
   return ApiService.fetchDataWithAxios<T>(
     {
       url: '/register/cliente/list',
-      method: 'get'
+      method: 'get',
+      params: {
+        ...params
+      }
     }
   )
 }

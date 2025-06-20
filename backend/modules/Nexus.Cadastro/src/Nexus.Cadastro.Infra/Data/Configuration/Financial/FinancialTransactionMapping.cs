@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Nexus.Cadastro.Domain.Modules.Finance;
 
 namespace Nexus.Cadastro.Infra.Data.Configuration.Financial;
 

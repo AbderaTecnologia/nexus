@@ -10,7 +10,7 @@ namespace Nexus.Cadastro.Api.Endpoints;
 public static class ProductEndpoints
 {
     public static IEndpointRouteBuilder MapProductEndpoints(this IEndpointRouteBuilder builder) =>
-        builder.MapGroup("Produtos", "/api/inventory/products", group =>
+        builder.MapGroup("Produtos", "/api/register/products", group =>
         {
             group.RequireAuthorization();
 
